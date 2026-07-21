@@ -86,7 +86,7 @@
                 a.p-tieredmenu-item-link {
                     border: none;
                     font-size: .9rem;
-                    border-radius: 0;
+                    border-radius: var(--border-radius-sm);
                     color: inherit;
 
                     span {

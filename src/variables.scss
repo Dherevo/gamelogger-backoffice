@@ -1,69 +1,61 @@
 
-// ─── MESOESTETIC BRAND TOKENS ───────────────────────────────────────────────
-// Ref: DESIGN-brand.md + design-app.md (Mayo 2026)
-// Paleta estrictamente monocromàtica. No usar colors fora de la paleta sense justificació.
-// Font: hn-medium / hn-bold (Helvetica Neue). Si els fitxers no estan disponibles,
-// el fallback és: 'Helvetica Neue', Helvetica, Arial, sans-serif.
+// ─── GAMELOGGER DESIGN TOKENS ───────────────────────────────────────────────
+// Admin backoffice palette. Shares the Gamelogger brand orange + dark sidebar
+// tone with the player-facing app, but keeps the content area light and
+// readable since this is a form-heavy admin tool.
 
 :root {
     --base-size: 1rem;
 }
 
-// Brand colors (monochrmatic — 90% black / 10% white)
+// Brand / semantic colors
 :root {
-    --color-brand-black: #000000;
-    --color-brand-white: #ffffff;
+    // Primary (Gamelogger orange)
+    --primary-color:          rgb(237, 115, 52);
+    --primary-dark-color:     rgb(171, 78, 31);
 
-    // Semantic surface tokens
-    --color-surface-raised:  #f8f8f8;
-    --color-surface-strong:  #f5f5f5;
+    // Highlight — used for hover/selected states and input focus rings
+    --highlight-light:        rgba(237, 114, 52, 0.04);
+    --highlight:              rgba(237, 114, 52, 0.08);
+    --highlight-dark:         rgba(237, 114, 52, 0.14);
+    --highlight-text:         rgb(139, 53, 9);
 
-    // Semantic text tokens
-    --color-text-primary:    #000000;
-    --color-text-inverse:    #424242;
-    --color-text-secondary:  #9b9b9b;
+    // Text
+    --text-color:             rgb(80, 80, 80);
+    --text-color-strong:      rgb(38, 38, 42);
+    --placeholder-color:      rgb(160, 160, 165);
 
-    // Semantic border tokens
-    --color-border-default:  #e0e0e0;
-    --color-border-strong:   #9b9b9b;
-}
-
-// Component variables — mapped to brand tokens
-:root {
-    --primary-color:          var(--color-brand-black);
-    --primary-dark-color:     #222222;
-
-    --highlight-light:        rgba(0, 0, 0, 0.03);
-    --highlight:              rgba(0, 0, 0, 0.06);
-    --highlight-dark:         rgba(0, 0, 0, 0.10);
-    --highlight-text:         #000000;
-
-    --text-color:             var(--color-text-inverse);
-    --placeholder-color:      var(--color-text-secondary);
-
-    --background-color:       var(--color-surface-raised);
+    // Surfaces — light content area, dark sidebar
+    --background-color:       #f7f7f8;
     --background-color-light: #ffffff;
-
     --input-background:       #ffffff;
 
-    --border-color:           var(--color-border-default);
-    --error-color:            #c0392b;
+    // Borders
+    --border-color:           #e4e4e7;
+    --border-strong-color:    #c9c9cf;
+
+    --error-color:            #e24c4c;
+
+    // Login V2 gradient (shared with gamelogger-front)
+    --login-gradient-1:       rgb(162, 39, 14);
+    --login-gradient-2:       rgb(194, 86, 36);
+    --login-gradient-3:       rgb(250, 179, 143);
 }
 
-// Typography — Helvetica Neue (hn-medium/hn-bold quan hi hagi fitxers de font)
+// Typography
 :root {
-    --font-family:      'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --font-family-bold: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-family:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-family-bold: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
     --text-xs:   0.6875rem;  // 11px
     --text-sm:   0.75rem;    // 12px
-    --text-md:   1rem;       // 16px  ← body base (brand: 16px)
+    --text-md:   1rem;       // 16px  ← body base
     --text-lg:   1.125rem;   // 18px
     --text-xl:   1.5625rem;  // 25px  ← H2
     --text-2xl:  1.875rem;   // 30px  ← H1
 }
 
-// Spacing — brand space tokens
+// Spacing
 :root {
     --space-1: 4px;
     --space-2: 5px;
@@ -85,14 +77,21 @@
     --margin-xl: 50px;
 }
 
-// Border radius — brand: cap border-radius (disseny asèptic, recte)
+// Border radius — real rounding
 :root {
-    --border-radius-sm: 0px;
-    --border-radius:    0px;
-    --border-radius-lg: 0px;
+    --border-radius-sm: 6px;
+    --border-radius:    8px;
+    --border-radius-lg: 12px;
 }
 
-// Motion — brand motion tokens
+// Shadows
+:root {
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.14);
+}
+
+// Motion
 :root {
     --duration-instant: 50ms;
     --duration-fast:    100ms;
@@ -101,12 +100,11 @@
     --duration-slower:  350ms;
 }
 
-// Backoffice layout
+// Backoffice layout — dark sidebar (matches gamelogger-front's dark menu tone)
 :root {
-    --menu-background-color: var(--color-brand-black);
+    --menu-background-color: rgb(46, 46, 54);
 }
 
-// Force light mode (brand is always light)
 :root {
     color-scheme: light !important;
 }

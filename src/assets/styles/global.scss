@@ -3,7 +3,10 @@
 .card {
     background-color: var(--background-color-light);
     border: solid 1px var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
     padding: 25px;
+    transition: box-shadow var(--duration-normal) ease;
 }
 
 #app {
@@ -28,61 +31,59 @@ body {
     margin: 0;
 }
 
-// Brand typography — tots els títols en lowercase i bold
+// Headings — normal case, bold
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-    text-transform: lowercase;
     font-weight: 700;
     letter-spacing: -0.3px;
+    color: var(--text-color-strong);
 }
 
 h1 { font-size: var(--text-2xl); margin: 0 0 15px; }
 h2 { font-size: var(--text-xl);  margin: 30px 0 20px; }
 h3 { font-size: var(--text-lg); }
 
-// Brand buttons — CTAs sempre en majúscula
-.btn.primary,
-.btn.alt,
-.btn.no-fill,
-.btn.danger,
-.btn.success {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-}
-
-// Brand base button
+// Buttons — real rounding + smooth state transitions
 .p-button,
 .btn {
     font-family: var(--font-family);
-    transition: all var(--duration-normal) ease;
-    border-radius: 0 !important;
+    border-radius: var(--border-radius-sm);
+    transition: background-color var(--duration-normal) ease,
+                box-shadow var(--duration-normal) ease,
+                color var(--duration-normal) ease,
+                transform var(--duration-fast) ease;
+
+    &:active {
+        transform: translateY(1px);
+    }
 }
 
-// Brand: cap border-radius en cap component
-.card,
+// PrimeVue components — reasonable rounding
 .p-inputtext,
 .p-textarea,
 .p-dropdown,
-.p-dropdown-panel,
 .p-select,
-.p-select-overlay,
 .p-multiselect,
-.p-multiselect-panel,
-.p-dialog,
-.p-dialog-content,
-.p-toast,
-.p-toast-message,
-.p-message,
 .p-tag,
 .p-chip,
 .p-badge,
 .p-paginator,
+.p-message,
+.p-toast-message {
+    border-radius: var(--border-radius-sm);
+}
+
+.p-dropdown-panel,
+.p-select-overlay,
+.p-multiselect-panel,
+.p-dialog,
+.p-dialog-content,
+.p-toast,
 .p-datatable,
 .p-datatable-table-container,
 .p-overlay,
 .p-popover,
 .p-tieredmenu,
 .p-breadcrumb {
-    border-radius: 0 !important;
+    border-radius: var(--border-radius);
 }
