@@ -176,6 +176,17 @@ const ca = Utils.merge(locale_ca, {
                 },
             },
         },
+        achievements: {
+            title: "Assoliments",
+            empty: "Aquest joc encara no té assoliments sincronitzats.",
+            titlePlaceholder: "Títol de l'assoliment",
+            description: "Descripció",
+            hidden: "Ocult",
+            notifications: {
+                success: "Assoliment desat correctament",
+                error: "Error en desar l'assoliment",
+            },
+        },
     },
 
     platform: {

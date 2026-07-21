@@ -3,6 +3,7 @@ import { App, FormInput, IOption, Loader, Validator, $t } from 'lib';
 import Game, { GAME_LOCALES, GameLocale } from '@/models/game';
 import Platform from '@/models/platform';
 import PlatformGame from '@/models/platformGame';
+import Achievement from '@/models/achievement';
 import GamesForm from '@/pages/games/form/form.vue';
 
 @Component({
@@ -26,6 +27,11 @@ class GamesUpdatePage extends Vue {
     newPlatformKey: string = '';
     addingPlatform: boolean = false;
 
+    achievements: Achievement[] = [];
+    achievementsLoaded: boolean = false;
+    expandedAchievements: Record<number, boolean> = {};
+    savingAchievements: Record<number, boolean> = {};
+
     created() {
         const id = (this as any).$route?.params?.id as string;
         if (!id) { this.to('/games'); return; }
@@ -41,6 +47,11 @@ class GamesUpdatePage extends Vue {
         Platform.list()
             .then(items => { this.allPlatforms = items; })
             .catch(() => { this.allPlatforms = []; });
+
+        Achievement.listForGame(id)
+            .then(items => { this.achievements = items; })
+            .catch(() => { this.achievements = []; })
+            .finally(() => { this.achievementsLoaded = true; });
     }
 
     get availablePlatforms(): IOption[] {
@@ -158,6 +169,26 @@ class GamesUpdatePage extends Vue {
                     App.notification(msg).setType('error').setTime(5000).show();
                 });
         });
+    }
+
+    // --- Achievements ---
+    toggleAchievement(a: Achievement) {
+        this.expandedAchievements[a.id] = !this.expandedAchievements[a.id];
+    }
+
+    saveAchievement(a: Achievement) {
+        if (this.savingAchievements[a.id]) return;
+        this.savingAchievements[a.id] = true;
+
+        const requests: Promise<any>[] = [a.save()];
+        if (this.expandedAchievements[a.id]) {
+            requests.push(...this.locales.map(locale => a.setTranslation(locale)));
+        }
+
+        Promise.all(requests)
+            .then(() => App.notification($t('game.achievements.notifications.success')).setType('success').setTime(3000).show())
+            .catch(() => App.notification($t('game.achievements.notifications.error')).setType('error').setTime(5000).show())
+            .finally(() => { this.savingAchievements[a.id] = false; });
     }
 
 }

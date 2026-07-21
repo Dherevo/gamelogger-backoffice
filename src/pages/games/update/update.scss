@@ -2,6 +2,9 @@
     .card {
         max-width: 720px;
     }
+    .achievements-card {
+        max-width: 900px;
+    }
 
     .images-row {
         display: flex;
@@ -42,5 +45,66 @@
     }
     .platform-select {
         min-width: 180px;
+    }
+
+    // --- Achievements ---
+    .empty-achievements {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    .achievement {
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 0;
+
+        &:first-of-type { padding-top: 0; }
+        &:last-of-type { border-bottom: none; padding-bottom: 0; }
+    }
+
+    .achievement-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+    }
+
+    .achievement-icon {
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--border-radius-sm);
+        background-color: var(--background-color);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 1px solid var(--border-color);
+        margin-bottom: 4px;
+    }
+
+    .achievement-main {
+        flex: 1;
+        min-width: 0;
+
+        .achievement-name {
+            font-size: 0.72rem;
+            color: var(--placeholder-color);
+            font-family: monospace;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .achievement-hidden {
+        flex: 0 0 auto;
+        margin-bottom: 6px;
+    }
+
+    .achievement-expanded {
+        margin-top: 12px;
+        padding: 14px 0 4px 52px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 }

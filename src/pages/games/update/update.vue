@@ -90,6 +90,51 @@
                 </Btn>
             </div>
         </div>
+
+        <!-- Achievements -->
+        <div class="card m-top-20 achievements-card">
+            <h2 class="h6 m-bottom-15">{{ $t('game.achievements.title') }}</h2>
+
+            <Loader v-if="!achievementsLoaded" />
+
+            <template v-else>
+                <div v-if="achievements.length === 0" class="empty-achievements">
+                    {{ $t('game.achievements.empty') }}
+                </div>
+
+                <div v-for="a in achievements" :key="a.id" class="achievement">
+                    <div class="achievement-row">
+                        <div class="achievement-icon"
+                             :style="{ backgroundImage: a.icon ? `url('${a.icon}')` : '' }"></div>
+                        <div class="achievement-main">
+                            <div class="achievement-name">{{ a.name }}</div>
+                            <FormInput class="achievement-title"
+                                       v-model="a.title"
+                                       :placeholder="$t('game.achievements.titlePlaceholder')"/>
+                        </div>
+                        <FormInput type="toggle"
+                                   class="achievement-hidden"
+                                   v-model="a.hidden"
+                                   :label="$t('game.achievements.hidden')"/>
+                        <Btn ripple class="no-fill small" @click="toggleAchievement(a)">
+                            <SvgIcon :name="expandedAchievements[a.id] ? 'prime/chevron-up' : 'prime/chevron-down'"/>
+                        </Btn>
+                        <Btn ripple class="primary small" :loading="savingAchievements[a.id]" @click="saveAchievement(a)">
+                            <SvgIcon name="prime/check"/> {{ $t('generic.save') }}
+                        </Btn>
+                    </div>
+
+                    <div v-if="expandedAchievements[a.id]" class="achievement-expanded">
+                        <FormInput type="textarea"
+                                   v-model="a.description"
+                                   :label="$t('game.achievements.description')"/>
+                        <FormInput v-for="locale in locales" :key="locale"
+                                   v-model="a.translations[locale]"
+                                   :label="$t('game.achievements.title') + ' (' + locale.toUpperCase() + ')'"/>
+                    </div>
+                </div>
+            </template>
+        </div>
         </template>
 
     </div>

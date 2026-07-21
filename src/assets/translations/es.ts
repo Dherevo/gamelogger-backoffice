@@ -176,6 +176,17 @@ const es = Utils.merge(locale_es, {
                 },
             },
         },
+        achievements: {
+            title: "Logros",
+            empty: "Este juego todavía no tiene logros sincronizados.",
+            titlePlaceholder: "Título del logro",
+            description: "Descripción",
+            hidden: "Oculto",
+            notifications: {
+                success: "Logro guardado correctamente",
+                error: "Error al guardar el logro",
+            },
+        },
     },
 
     platform: {

@@ -176,6 +176,17 @@ const en = Utils.merge(locale_en, {
                 },
             },
         },
+        achievements: {
+            title: "Achievements",
+            empty: "This game has no synced achievements yet.",
+            titlePlaceholder: "Achievement title",
+            description: "Description",
+            hidden: "Hidden",
+            notifications: {
+                success: "Achievement saved successfully",
+                error: "Error saving the achievement",
+            },
+        },
     },
 
     platform: {
