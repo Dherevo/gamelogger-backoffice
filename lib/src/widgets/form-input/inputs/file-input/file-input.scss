@@ -82,12 +82,15 @@
             border-radius: 5px;
             border: dashed 1px gray;
             background-color: transparent;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
 
             &.filled {
-                border: none;
+                border: solid 1px var(--gray-light, #e0e0e0);
             }
 
             &-label {

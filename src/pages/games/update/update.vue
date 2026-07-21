@@ -1,6 +1,9 @@
 <template>
     <div id="games-update-page">
 
+        <Loader v-if="!loaded" />
+
+        <template v-else>
         <!-- Header + base fields -->
         <form @submit.prevent="save()">
             <div class="flex-bottom m-bottom-20" style="justify-content: space-between;">
@@ -87,6 +90,7 @@
                 </Btn>
             </div>
         </div>
+        </template>
 
     </div>
 </template>

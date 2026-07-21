@@ -33,7 +33,7 @@
             <div id="backoffice-menu-footer">
 
                 <!-- USER -->
-                <Inline space="5">
+                <Inline space="5" class="user-footer" style="cursor: pointer;" @click="to('/profile')">
                     <Avatar :name="currentUser.name" src=""/>
                     <div class="user-info">
                         <div>{{ currentUser.name }}</div>

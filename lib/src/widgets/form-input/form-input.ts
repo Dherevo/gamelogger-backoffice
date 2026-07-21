@@ -375,7 +375,7 @@ export default defineComponent({
                     'filter'
                 );
             }
-            else if (this.type == 'file') {
+            else if (['file', 'image', 'media', 'video'].includes(this.type)) {
                 allowedProps.push(
                     'accept',
                     'canDelete',

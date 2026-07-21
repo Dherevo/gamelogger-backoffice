@@ -1,12 +1,12 @@
 import { Component, Vue, toNative } from 'vue-facing-decorator';
-import { App, FormInput, IOption, Validator, $t } from 'lib';
+import { App, FormInput, IOption, Loader, Validator, $t } from 'lib';
 import Game, { GAME_LOCALES, GameLocale } from '@/models/game';
 import Platform from '@/models/platform';
 import PlatformGame from '@/models/platformGame';
 import GamesForm from '@/pages/games/form/form.vue';
 
 @Component({
-    components: { GamesForm, FormInput }
+    components: { GamesForm, FormInput, Loader }
 })
 class GamesUpdatePage extends Vue {
 
@@ -14,6 +14,7 @@ class GamesUpdatePage extends Vue {
     validator: Validator = new Validator();
     saving: boolean = false;
     savingTranslations: boolean = false;
+    loaded: boolean = false;
 
     locales: GameLocale[] = GAME_LOCALES;
 
@@ -29,8 +30,12 @@ class GamesUpdatePage extends Vue {
         const id = (this as any).$route?.params?.id as string;
         if (!id) { this.to('/games'); return; }
 
+        // The icon/logo FormInput widgets only read their initial `:src` once,
+        // in their own created() hook — they don't react to it changing later.
+        // So the game (and its icon/logo URLs) must be fully loaded BEFORE this
+        // page's template mounts them, or the existing image preview never shows.
         Game.findById(id)
-            .then(g => { this.game = g; })
+            .then(g => { this.game = g; this.loaded = true; })
             .catch(() => this.to('/games'));
 
         Platform.list()

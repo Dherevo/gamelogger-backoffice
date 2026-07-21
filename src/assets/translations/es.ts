@@ -7,6 +7,16 @@ const es = Utils.merge(locale_es, {
         notAdmin: "Esta cuenta no tiene permisos de administrador.",
     },
 
+    profile: {
+        title: "Mi perfil",
+        save: "Guardar",
+        passwordHint: "Déjalo en blanco para mantener la contraseña actual.",
+        notifications: {
+            success: "Perfil actualizado correctamente",
+            error: "Error al actualizar el perfil",
+        },
+    },
+
     backoffice: {
         pagination: "Mostrando {first}-{last} de {totalRecords} resultados",
         logoutConfirm: "¿Seguro que quieres cerrar la sesión?",

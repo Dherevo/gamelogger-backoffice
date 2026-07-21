@@ -35,6 +35,10 @@ const routes: IRoute[] = [
                 path: 'dashboard',
                 component: () => import('../pages/home/home.vue'),
             },
+            {
+                path: 'profile',
+                component: () => import('../pages/profile/profile.vue'),
+            },
             // Users
             {
                 path: 'users',

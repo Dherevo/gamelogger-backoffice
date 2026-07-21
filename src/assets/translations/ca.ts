@@ -7,6 +7,16 @@ const ca = Utils.merge(locale_ca, {
         notAdmin: "Aquest compte no té permisos d'administrador.",
     },
 
+    profile: {
+        title: "El meu perfil",
+        save: "Desa",
+        passwordHint: "Deixa-ho buit per mantenir la contrasenya actual.",
+        notifications: {
+            success: "Perfil actualitzat correctament",
+            error: "Error en actualitzar el perfil",
+        },
+    },
+
     backoffice: {
         pagination: "Mostrant {first}-{last} de {totalRecords} resultats",
         logoutConfirm: "Segur que vols tancar la sessió?",
