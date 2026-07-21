@@ -65,6 +65,16 @@
         display: flex;
         align-items: flex-end;
         gap: 12px;
+        flex-wrap: wrap;
+
+        // The framework's base .btn sets width:100%, which — combined with
+        // .achievement-main's min-width:0 below — makes the flex algorithm
+        // starve the title field down to zero width to satisfy the buttons'
+        // inflated flex-basis. Buttons here must size to their own content.
+        .btn {
+            width: auto;
+            flex: 0 0 auto;
+        }
     }
 
     .achievement-icon {
@@ -81,23 +91,24 @@
     }
 
     .achievement-main {
-        flex: 1;
-        min-width: 0;
+        flex: 1 1 220px;
+        min-width: 220px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
 
         .achievement-name {
             font-size: 0.72rem;
             color: var(--placeholder-color);
             font-family: monospace;
-            margin-bottom: 4px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-    }
 
-    .achievement-hidden {
-        flex: 0 0 auto;
-        margin-bottom: 6px;
+        .achievement-description textarea {
+            min-height: 44px;
+        }
     }
 
     .achievement-expanded {
@@ -106,5 +117,20 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+
+    .achievements-pager {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .btn {
+            width: auto;
+        }
+    }
+    .achievements-pager-label {
+        font-size: 0.85rem;
+        color: var(--text-color);
+        white-space: nowrap;
     }
 }

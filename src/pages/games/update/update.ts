@@ -29,6 +29,9 @@ class GamesUpdatePage extends Vue {
 
     achievements: Achievement[] = [];
     achievementsLoaded: boolean = false;
+    achievementsTotal: number = 0;
+    achievementsOffset: number = 0;
+    achievementsPageSize: number = 20;
     expandedAchievements: Record<number, boolean> = {};
     savingAchievements: Record<number, boolean> = {};
 
@@ -48,10 +51,43 @@ class GamesUpdatePage extends Vue {
             .then(items => { this.allPlatforms = items; })
             .catch(() => { this.allPlatforms = []; });
 
-        Achievement.listForGame(id)
-            .then(items => { this.achievements = items; })
-            .catch(() => { this.achievements = []; })
+        this.loadAchievements();
+    }
+
+    get achievementsPage(): number {
+        return Math.floor(this.achievementsOffset / this.achievementsPageSize) + 1;
+    }
+
+    get achievementsTotalPages(): number {
+        return Math.max(1, Math.ceil(this.achievementsTotal / this.achievementsPageSize));
+    }
+
+    loadAchievements() {
+        this.achievementsLoaded = false;
+        Achievement.listForGame(this.game.id || (this as any).$route?.params?.id, {
+            offset: this.achievementsOffset,
+            pageSize: this.achievementsPageSize,
+        })
+            .then(res => {
+                this.achievements = res.items;
+                this.achievementsTotal = res.total;
+                this.achievementsOffset = res.offset;
+                this.achievementsPageSize = res.pageSize;
+            })
+            .catch(() => { this.achievements = []; this.achievementsTotal = 0; })
             .finally(() => { this.achievementsLoaded = true; });
+    }
+
+    prevAchievementsPage() {
+        if (this.achievementsOffset <= 0) return;
+        this.achievementsOffset = Math.max(0, this.achievementsOffset - this.achievementsPageSize);
+        this.loadAchievements();
+    }
+
+    nextAchievementsPage() {
+        if (this.achievementsOffset + this.achievementsPageSize >= this.achievementsTotal) return;
+        this.achievementsOffset += this.achievementsPageSize;
+        this.loadAchievements();
     }
 
     get availablePlatforms(): IOption[] {

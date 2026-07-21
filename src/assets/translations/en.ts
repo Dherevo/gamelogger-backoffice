@@ -181,7 +181,8 @@ const en = Utils.merge(locale_en, {
             empty: "This game has no synced achievements yet.",
             titlePlaceholder: "Achievement title",
             description: "Description",
-            hidden: "Hidden",
+            translations: "Translations",
+            page: "{page} of {total} ({count} total)",
             notifications: {
                 success: "Achievement saved successfully",
                 error: "Error saving the achievement",

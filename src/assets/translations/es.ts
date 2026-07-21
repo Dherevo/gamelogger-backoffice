@@ -181,7 +181,8 @@ const es = Utils.merge(locale_es, {
             empty: "Este juego todavía no tiene logros sincronizados.",
             titlePlaceholder: "Título del logro",
             description: "Descripción",
-            hidden: "Oculto",
+            translations: "Traducciones",
+            page: "{page} de {total} ({count} en total)",
             notifications: {
                 success: "Logro guardado correctamente",
                 error: "Error al guardar el logro",

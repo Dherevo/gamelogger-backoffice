@@ -1,10 +1,17 @@
 import { http, Model } from 'lib';
 import { GAME_LOCALES, GameLocale } from './game';
 
+export interface AchievementListResponse {
+    total: number;
+    pageSize: number;
+    offset: number;
+    items: Achievement[];
+}
+
 /**
  * An achievement synced for a game from Steam/PSN. `name` (internal identifier)
  * and `icon` (external URL) are read-only — they come from the platform sync.
- * `title`, `description` and `hidden` are editable for manual corrections.
+ * `title` and `description` are editable for manual corrections.
  */
 export default class Achievement extends Model {
 
@@ -13,7 +20,6 @@ export default class Achievement extends Model {
     title: string = '';
     description: string = '';
     icon: string = '';           // full URL (read-only)
-    hidden: boolean = false;
     platform: string = '';
 
     // Per-locale title translations. Empty string when no translation row exists.
@@ -25,7 +31,6 @@ export default class Achievement extends Model {
             const rest = { ...api };
             delete rest.translations;
             this.import(rest);
-            this.hidden = !!rest.hidden;
 
             if (api.translations) {
                 for (const locale of GAME_LOCALES) {
@@ -35,16 +40,20 @@ export default class Achievement extends Model {
         }
     }
 
-    static listForGame(gameId: number | string): Promise<Achievement[]> {
-        return (http.get(`/admin/games/${gameId}/achievements`).promise() as Promise<any>)
-            .then((res: any) => (res || []).map((a: any) => new Achievement(a)));
+    static listForGame(gameId: number | string, params: any = {}): Promise<AchievementListResponse> {
+        return (http.get(`/admin/games/${gameId}/achievements`).data(params).promise() as Promise<any>)
+            .then((res: any) => ({
+                total: res.total,
+                pageSize: res.pageSize,
+                offset: res.offset,
+                items: (res.items || []).map((a: any) => new Achievement(a)),
+            }));
     }
 
     save(): Promise<any> {
         return http.put(`/admin/achievements/${this.id}`, {
             title: this.title,
             description: this.description,
-            hidden: this.hidden,
         }).promise();
     }
 

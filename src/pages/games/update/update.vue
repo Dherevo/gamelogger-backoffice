@@ -93,7 +93,20 @@
 
         <!-- Achievements -->
         <div class="card m-top-20 achievements-card">
-            <h2 class="h6 m-bottom-15">{{ $t('game.achievements.title') }}</h2>
+            <div class="flex-center m-bottom-15" style="justify-content: space-between;">
+                <h2 class="h6 m-bottom-0">{{ $t('game.achievements.title') }}</h2>
+                <div v-if="achievementsTotal > 0" class="achievements-pager">
+                    <Btn ripple class="no-fill small" :disabled="achievementsOffset <= 0" @click="prevAchievementsPage()">
+                        <SvgIcon name="prime/chevron-left"/>
+                    </Btn>
+                    <span class="achievements-pager-label">
+                        {{ $t('game.achievements.page', { page: achievementsPage, total: achievementsTotalPages, count: achievementsTotal }) }}
+                    </span>
+                    <Btn ripple class="no-fill small" :disabled="achievementsOffset + achievementsPageSize >= achievementsTotal" @click="nextAchievementsPage()">
+                        <SvgIcon name="prime/chevron-right"/>
+                    </Btn>
+                </div>
+            </div>
 
             <Loader v-if="!achievementsLoaded" />
 
@@ -111,13 +124,14 @@
                             <FormInput class="achievement-title"
                                        v-model="a.title"
                                        :placeholder="$t('game.achievements.titlePlaceholder')"/>
+                            <FormInput type="textarea"
+                                       class="achievement-description"
+                                       v-model="a.description"
+                                       :placeholder="$t('game.achievements.description')"/>
                         </div>
-                        <FormInput type="toggle"
-                                   class="achievement-hidden"
-                                   v-model="a.hidden"
-                                   :label="$t('game.achievements.hidden')"/>
                         <Btn ripple class="no-fill small" @click="toggleAchievement(a)">
                             <SvgIcon :name="expandedAchievements[a.id] ? 'prime/chevron-up' : 'prime/chevron-down'"/>
+                            {{ $t('game.achievements.translations') }}
                         </Btn>
                         <Btn ripple class="primary small" :loading="savingAchievements[a.id]" @click="saveAchievement(a)">
                             <SvgIcon name="prime/check"/> {{ $t('generic.save') }}
@@ -125,9 +139,6 @@
                     </div>
 
                     <div v-if="expandedAchievements[a.id]" class="achievement-expanded">
-                        <FormInput type="textarea"
-                                   v-model="a.description"
-                                   :label="$t('game.achievements.description')"/>
                         <FormInput v-for="locale in locales" :key="locale"
                                    v-model="a.translations[locale]"
                                    :label="$t('game.achievements.title') + ' (' + locale.toUpperCase() + ')'"/>

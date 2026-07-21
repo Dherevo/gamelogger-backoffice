@@ -181,7 +181,8 @@ const ca = Utils.merge(locale_ca, {
             empty: "Aquest joc encara no té assoliments sincronitzats.",
             titlePlaceholder: "Títol de l'assoliment",
             description: "Descripció",
-            hidden: "Ocult",
+            translations: "Traduccions",
+            page: "{page} de {total} ({count} en total)",
             notifications: {
                 success: "Assoliment desat correctament",
                 error: "Error en desar l'assoliment",
