@@ -1,44 +1,44 @@
 <template>
-    <div id="login-page">
-        <div class="left"></div>
-        <div class="right">
-            <div class="form-container">
-                <template v-if="success">
-                    <p>{{ $t('reset_password.success') }}</p>
-                    <Btn fill ripple class="primary" style="margin-top: 16px;" @click="to('/login')">
-                        {{ $t('reset_password.successButton') }}
+    <div id="reset-password-page">
+        <div class="reset-password-card">
+
+            <h1 class="reset-password-title">{{ $t('reset_password.title') }}</h1>
+
+            <template v-if="!token">
+                <template v-if="!done">
+                    <p class="reset-password-subtitle">{{ $t('reset_password.email.title') }}</p>
+                    <FormInput type="email" :label="$t('generic.email')" v-model="email"
+                        @pressEnter="requestReset" :pass="{ autocomplete: 'off' }" />
+                    <div v-if="errorMsg" class="reset-password-error">{{ errorMsg }}</div>
+                    <Btn class="reset-password-submit" fill :loading="loading" @click="requestReset">
+                        {{ $t('reset_password.email.submit') }}
                     </Btn>
                 </template>
-                <template v-else-if="error">
-                    <p>{{ $t('reset_password.error') }}</p>
-                    <div style="margin-top: 16px;">
-                        <Link href="/login">{{ $t('reset_password.back') }}</Link>
-                    </div>
+                <p v-else class="reset-password-success">{{ $t('reset_password.email.success') }}</p>
+            </template>
+
+            <template v-else>
+                <template v-if="!done">
+                    <p class="reset-password-subtitle">{{ $t('reset_password.password.title') }}</p>
+                    <FormInput type="password" :label="$t('generic.password')" v-model="password"
+                        :pass="{ autocomplete: 'new-password' }" />
+                    <FormInput type="password" :label="$t('generic.repassword')" v-model="passwordConfirm"
+                        @pressEnter="setPassword" :pass="{ autocomplete: 'new-password' }" />
+                    <div v-if="errorMsg" class="reset-password-error">{{ errorMsg }}</div>
+                    <Btn class="reset-password-submit" fill :loading="loading" @click="setPassword">
+                        {{ $t('reset_password.password.submit') }}
+                    </Btn>
                 </template>
                 <template v-else>
-                    <form @submit.prevent="submit">
-                        <FormInput
-                            v-model="newPassword"
-                            type="password"
-                            :label="$t('generic.password')"
-                            :placeholder="$t('generic.password')"
-                            :validator="validator.add('newPassword', () => newPassword).notEmpty().causesError($t('reset_password.errors.newPassword'))"
-                            style="margin-bottom: 24px;"
-                        />
-                        <FormInput
-                            v-model="confirmPassword"
-                            type="password"
-                            :label="$t('generic.repassword')"
-                            :placeholder="$t('generic.repassword')"
-                            :validator="confirmPasswordValidator"
-                            style="margin-bottom: 24px;"
-                        />
-                        <Btn fill ripple class="primary" type="submit" :loading="loading">
-                            {{ $t('reset_password.submit') }}
-                        </Btn>
-                    </form>
+                    <p class="reset-password-success">{{ $t('reset_password.password.success') }}</p>
+                    <Btn class="reset-password-submit" fill @click="goToLogin">
+                        {{ $t('reset_password.password.button') }}
+                    </Btn>
                 </template>
-            </div>
+            </template>
+
+            <Link href="/login" class="reset-password-back">{{ $t('reset_password.back') }}</Link>
+
         </div>
     </div>
 </template>

@@ -1,27 +1,36 @@
+import ca from "./ca"
 import es from "./es"
+import en from "./en"
 
 // Moment:
+import momentCA from "../../../lib/moment-locales/ca";
 import momentES from "../../../lib/moment-locales/es";
 
 // Prime:
+import primeCA from "primelocale/ca.json";
 import primeES from "primelocale/es.json";
+import primeEN from "primelocale/en.json";
 
 export default {
 
-    defaultLanguage: 'es',
+    defaultLanguage: 'ca',
 
     locales: {
-        es: es
-        // Agregar otros idiomas aquí
+        ca: ca,
+        es: es,
+        en: en,
     },
 
     moment: {
-        // Inglés no hace falta, por defecto ya viene.
-        es: momentES
+        // English is bundled by default.
+        ca: momentCA,
+        es: momentES,
     },
 
     prime: {
-        // Agrega aquí traducciones de PrimeVue https://primevue.org/configuration/#locale
-        ...primeES
+        // https://primevue.org/configuration/#locale
+        ...primeCA,
+        ...primeES,
+        ...primeEN,
     }
 }

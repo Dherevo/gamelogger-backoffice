@@ -1,6 +1,7 @@
 import { Component, Vue, toNative } from "vue-facing-decorator";
-import { App, Popup, Avatar, Storage, EventListener, Store } from "lib";
+import { App, Popup, Avatar, Storage, EventListener, Store, $t } from "lib";
 import auth from "@/modules/auth";
+import userStore from "@/modules/userStore";
 import menuItems from "./menu-items";
 import type { IMenuItem } from "./menu-items";
 import TieredMenu from 'primevue/tieredmenu';
@@ -16,7 +17,7 @@ class Backoffice extends Vue {
     collapsed: boolean = false;
     breadcrumbs: { label: string, url: string }[] = [];
     loading: boolean = true;
-    currentUser: { name: string, email: string, role: number } = { name: '', email: '', role: -1 };
+    currentUser: { name: string, email: string } = { name: '', email: '' };
 
     created() {
         this.collapsed = Storage.get('menu-collapsed');
@@ -26,16 +27,20 @@ class Backoffice extends Vue {
         });
 
         auth.isLoggedIn()
-            .then(() => auth.getUserInfo())
-            .then((user: any) => {
-                this.currentUser = {
-                    name: user.name || user.username || '',
-                    email: user.email || '',
-                    role: user.role ?? -1,
-                };
-                Store.set('currentUser', this.currentUser);
+            .then(() => auth.fetchUserData())
+            .then(() => {
+                const data = userStore.data;
+
+                // Only administrators may use the backoffice.
+                if (!data || !data.isAdmin) {
+                    auth.logout();
+                    Store.set('message', $t('login.notAdmin'));
+                    this.to('/login');
+                    return;
+                }
+
+                this.currentUser = { name: data.name, email: data.email };
                 this.loading = false;
-                this.checkRoutePermission(this.currentUser.role);
                 menuItems(this).then(items => { this.menuItems = items; });
             })
             .catch(() => this.to('/login'));
@@ -43,12 +48,6 @@ class Backoffice extends Vue {
         EventListener.on('breadcrumbs', 'setBreadcrumbs', (items: any[]) => {
             this.breadcrumbs = [{ label: '', url: '' }, ...items];
         });
-    }
-
-    checkRoutePermission(_role: number) {
-        if (location.pathname.startsWith('/distributors')) {
-            this.to('/patients');
-        }
     }
 
     toggleMenu() {
@@ -68,7 +67,7 @@ class Backoffice extends Vue {
     }
 
     logout() {
-        App.confirm('¿Estás seguro de que quieres cerrar la sesión?')
+        App.confirm($t('backoffice.logoutConfirm'))
             .then((value: boolean) => {
                 if (value) {
                     auth.logout().then(() => this.to('/login'));

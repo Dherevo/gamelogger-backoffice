@@ -1,4 +1,5 @@
-import { http } from 'lib';
+import { http } from "lib";
+import userStore from "./userStore";
 
 export default {
 
@@ -8,24 +9,23 @@ export default {
         resolve(true);
     }),
 
-    login: (email: string, password: string) => new Promise((resolve, reject) => {
-        http.post('/account/Login')
-            .data({ email, password })
+    fetchUserData: () => new Promise((resolve, reject) => {
+        http.get('/userdata')
+            .promise()
             .then((response: any) => {
-                if (response.accessToken) {
-                    http.token.save('Bearer ' + response.accessToken, response.refreshToken);
-                }
+                userStore.data = response;
                 resolve(response);
             })
             .catch(reject);
     }),
 
-    refreshToken: () => new Promise((resolve, reject) => {
-        http.post('/account/RefreshToken')
-            .data({ refreshToken: http.token.getRefreshToken() })
+    login: (username: string, password: string) => new Promise((resolve, reject) => {
+        http.post('/auth/login')
+            .data({ username, password })
+            .promise()
             .then((response: any) => {
-                if (response.accessToken) {
-                    http.token.save('Bearer ' + response.accessToken, response.refreshToken);
+                if (response.access) {
+                    http.token.save(response.access, response.refresh);
                 }
                 resolve(response);
             })
@@ -33,26 +33,9 @@ export default {
     }),
 
     logout: () => new Promise<void>(resolve => {
-        const refreshToken = http.token.getRefreshToken();
-        http.post('/account/Logout')
-            .data({ refreshToken })
-            .promise()
-            .finally(() => {
-                http.token.remove();
-                resolve();
-            });
+        http.token.remove();
+        userStore.data = null;
+        resolve();
     }),
 
-    getUserInfo: (): Promise<any> => http.post('/account/GetUserInfo').promise() as Promise<any>,
-
-    editProfile: (data: { name?: string, surnames?: string, telephone?: string, language?: number }): Promise<any> => http.put('/account/EditProfile', data).promise() as Promise<any>,
-
-    changePassword: (data: { currentPassword: string, newPassword: string }): Promise<any> => http.put('/account/ChangePassword', data).promise() as Promise<any>,
-
-    recover: (email: string): Promise<any> => http.post('/account/Recover', { email }).promise() as Promise<any>,
-
-    resetPassword: (token: string, newPassword: string): Promise<any> => http.post('/account/ResetPassword', { token, newPassword }).promise() as Promise<any>,
-
-    verifyEmail: (token: string): Promise<any> => http.get(`/account/VerifyEmail/${token}`).promise() as Promise<any>,
-
-}
+};

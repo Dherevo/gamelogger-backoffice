@@ -1,0 +1,34 @@
+import { http, Model } from 'lib';
+
+/**
+ * A platform attached to a game (the platform_games pivot). `id` is the platform id.
+ * All write operations are scoped to the owning game id.
+ */
+export default class PlatformGame extends Model {
+
+    id: number = 0;              // platform id
+    name: string = '';          // platform name
+    key: string = '';           // platform-specific key (Steam appid, PSN id, ...)
+    achievements_synced_at: string | null = null;
+
+    constructor(api?: any) {
+        super();
+        this.import(api);
+    }
+
+    static attach(gameId: number | string, platformId: number, key: string): Promise<any> {
+        return http.post(`/admin/games/${gameId}/platforms`, { platform_id: platformId, key }).promise();
+    }
+
+    updateKey(gameId: number | string): Promise<any> {
+        return http.put(`/admin/games/${gameId}/platforms/${this.id}`, { key: this.key }).promise();
+    }
+
+    resetSync(gameId: number | string): Promise<any> {
+        return http.put(`/admin/games/${gameId}/platforms/${this.id}`, { reset_achievements_synced_at: true }).promise();
+    }
+
+    detach(gameId: number | string): Promise<any> {
+        return http.delete(`/admin/games/${gameId}/platforms/${this.id}`).promise();
+    }
+}

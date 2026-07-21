@@ -1,40 +1,68 @@
-import { Component, Vue, toNative } from 'vue-facing-decorator';
-import { FormInput, Validator, $t } from 'lib';
-import auth from '@/modules/auth';
+import { Component, Vue, toNative } from "vue-facing-decorator";
+import { http, FormInput } from "lib";
 
-@Component({
-    components: { FormInput }
-})
+@Component({ components: { FormInput } })
 class ResetPasswordPage extends Vue {
 
-    token: string = '';
-    newPassword: string = '';
-    confirmPassword: string = '';
-    validator: Validator = new Validator();
-    loading: boolean = false;
-    success: boolean = false;
-    error: boolean = false;
+    email = '';
+    password = '';
+    passwordConfirm = '';
+    loading = false;
+    errorMsg = '';
+    done = false;
 
-    created() {
-        this.token = (this as any).$route?.query?.token || '';
-        if (!this.token) this.to('/login');
+    get token(): string | null {
+        return (this.$route.params.token as string) || (this.$route.query.token as string) || null;
     }
 
-    get confirmPasswordValidator() {
-        return this.validator.add('confirmPassword', () => this.confirmPassword)
-            .rule(() => this.newPassword === this.confirmPassword, 'passwordMismatch')
-            .causesError($t('reset_password.errors.mismatch'));
+    requestReset() {
+        if (!this.email.trim()) return;
+
+        this.loading = true;
+        this.errorMsg = '';
+
+        http.post('/auth/password/reset')
+            .data({ email: this.email.trim() })
+            .promise()
+            .then(() => {
+                this.loading = false;
+                this.done = true;
+            })
+            .catch(() => {
+                this.loading = false;
+                this.errorMsg = this.$t('reset_password.email.error');
+            });
     }
 
-    submit() {
-        if (this.loading) return;
-        if (this.validator.validate({ newPassword: this.newPassword, confirmPassword: this.confirmPassword })) {
-            this.loading = true;
-            auth.resetPassword(this.token, this.newPassword)
-                .then(() => { this.success = true; })
-                .catch(() => { this.error = true; })
-                .finally(() => { this.loading = false; });
+    setPassword() {
+        this.errorMsg = '';
+
+        if (!this.password) {
+            this.errorMsg = this.$t('reset_password.password.empty');
+            return;
         }
+        if (this.password !== this.passwordConfirm) {
+            this.errorMsg = this.$t('reset_password.password.mismatch');
+            return;
+        }
+
+        this.loading = true;
+
+        http.post('/auth/password/set')
+            .data({ password: this.password, token: this.token })
+            .promise()
+            .then(() => {
+                this.loading = false;
+                this.done = true;
+            })
+            .catch(() => {
+                this.loading = false;
+                this.errorMsg = this.$t('reset_password.password.error');
+            });
+    }
+
+    goToLogin() {
+        this.$router.push('/login');
     }
 
 }

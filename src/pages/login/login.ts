@@ -1,43 +1,40 @@
-import { Component, Vue, toNative } from 'vue-facing-decorator';
-import { FormInput, Validator, $t } from 'lib';
-import auth from '@/modules/auth';
+import { Component, Vue, toNative } from "vue-facing-decorator";
+import { LoginPageV2 as Login, Store, $t } from "lib";
+import auth from "@/modules/auth";
+import userStore from "@/modules/userStore";
 
 @Component({
-    components: { FormInput }
+    components: { Login }
 })
 class LoginPage extends Vue {
 
-    loginData = { email: '', password: '' };
-    validator: Validator = new Validator();
-    loading: boolean = false;
+    warning: string = Store.getSync('message') || '';
 
     created() {
-        auth.isLoggedIn()
-            .then(() => this.to('/patients'))
-            .catch(() => {});
+        Store.clear('message');
     }
 
-    doLogin() {
-        if (this.loading) return;
-        if (this.validator.validate(this.loginData)) {
-            this.loading = true;
-            auth.login(this.loginData.email, this.loginData.password)
-                .then(() => {
-                    this.to('/patients');
-                })
-                .catch(() => {
-                    const msg = $t('login.error');
-                    const emailV = this.validator.get('email');
-                    emailV.error = true;
-                    emailV.setInputError(msg);
-                    const passV = this.validator.get('password');
-                    passV.error = true;
-                    passV.setInputError(msg);
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
-        }
+    doLogin($e: {
+        username: string,
+        password: string,
+        success: () => void,
+        error: (error: string) => void
+    }) {
+
+        auth.login($e.username, $e.password)
+            .then(() => auth.fetchUserData())
+            .then(() => {
+                if (!userStore.data?.isAdmin) {
+                    auth.logout();
+                    $e.error($t('login.notAdmin'));
+                    return;
+                }
+                this.to('/users');
+                $e.success();
+            })
+            .catch(() => {
+                $e.error($t('login.error'));
+            });
     }
 
 }

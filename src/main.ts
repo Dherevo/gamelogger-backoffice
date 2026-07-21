@@ -22,7 +22,7 @@ App.init(packageJSON.version, app, config, routes, locales);
 // Root redirect guard
 App.router.beforeEach((to: any, _from: any, next: any) => {
     if (to.path === '/') {
-        next(httpLib.token.get() ? '/patients' : '/login');
+        next(httpLib.token.get() ? '/users' : '/login');
     } else {
         next();
     }

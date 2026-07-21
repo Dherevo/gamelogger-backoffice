@@ -1,0 +1,44 @@
+#games-update-page {
+    .card {
+        max-width: 720px;
+    }
+
+    .images-row {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    .image-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .image-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .empty-platforms {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    .platform-row,
+    .platform-add {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .platform-name {
+        min-width: 120px;
+        font-weight: 600;
+        padding-bottom: 10px;
+    }
+    .platform-key {
+        flex: 1;
+    }
+    .platform-select {
+        min-width: 180px;
+    }
+}

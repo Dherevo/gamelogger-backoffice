@@ -1,30 +1,39 @@
-import auth from "@/modules/auth";
-import { http, Config, HttpError } from "lib";
+import { http, Config, HttpError, translate } from "lib";
 
 export default () => {
 
     http.baseURL = Config.get('api.url');
 
-    ///// FLUJO PARA REFRESCAR EL TOKEN
-    // Cada vez que una request falla, primero ejecuta esto para detectar si el problema
-    // es que el token ha caducado: (resolve true/false)
+    // Send the current UI language so the API can localize error messages / content.
+    http.setGlobalHeaders(() => Promise.resolve({
+        'Accept-Language': translate.currentLanguage
+    }));
+
+    // Detect whether a failed request is due to an expired access token.
     http.token.CheckIfExpired = (err: HttpError) => new Promise(resolve => {
         const token = http.token.get();
         resolve(!!token && err.status == 401);
     });
 
-    // Si la función anterior devuelve true (ha caducado el token)
-    // entonces ejecuta esta para refrescar el token.
-    // Si ésta devuelve true, volverá a repetir la request original que falló
-    // con 401 para intentar con el nuevo token.
+    // Refresh the access token. If it succeeds the original request is retried.
     http.token.Refresh = () => new Promise((resolve, reject) => {
-        auth.refreshToken()
-        .then(() => resolve(true))
-        .catch(() => {
-            http.token.remove();
-            location.href = '/login';
-            reject();
-        });
+
+        const refreshToken = http.token.getRefreshToken();
+        if (!refreshToken) {
+            return reject();
+        }
+
+        http.post('/auth/refresh')
+            .data({ refreshToken })
+            .promise()
+            .then((response: any) => {
+                http.token.save(response.access, response.refresh);
+                resolve(true);
+            })
+            .catch(() => {
+                http.token.remove();
+                location.href = '/login';
+                reject();
+            });
     });
-    //////////////
-}
+};
