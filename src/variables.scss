@@ -1,0 +1,112 @@
+
+// ─── MESOESTETIC BRAND TOKENS ───────────────────────────────────────────────
+// Ref: DESIGN-brand.md + design-app.md (Mayo 2026)
+// Paleta estrictamente monocromàtica. No usar colors fora de la paleta sense justificació.
+// Font: hn-medium / hn-bold (Helvetica Neue). Si els fitxers no estan disponibles,
+// el fallback és: 'Helvetica Neue', Helvetica, Arial, sans-serif.
+
+:root {
+    --base-size: 1rem;
+}
+
+// Brand colors (monochrmatic — 90% black / 10% white)
+:root {
+    --color-brand-black: #000000;
+    --color-brand-white: #ffffff;
+
+    // Semantic surface tokens
+    --color-surface-raised:  #f8f8f8;
+    --color-surface-strong:  #f5f5f5;
+
+    // Semantic text tokens
+    --color-text-primary:    #000000;
+    --color-text-inverse:    #424242;
+    --color-text-secondary:  #9b9b9b;
+
+    // Semantic border tokens
+    --color-border-default:  #e0e0e0;
+    --color-border-strong:   #9b9b9b;
+}
+
+// Component variables — mapped to brand tokens
+:root {
+    --primary-color:          var(--color-brand-black);
+    --primary-dark-color:     #222222;
+
+    --highlight-light:        rgba(0, 0, 0, 0.03);
+    --highlight:              rgba(0, 0, 0, 0.06);
+    --highlight-dark:         rgba(0, 0, 0, 0.10);
+    --highlight-text:         #000000;
+
+    --text-color:             var(--color-text-inverse);
+    --placeholder-color:      var(--color-text-secondary);
+
+    --background-color:       var(--color-surface-raised);
+    --background-color-light: #ffffff;
+
+    --input-background:       #ffffff;
+
+    --border-color:           var(--color-border-default);
+    --error-color:            #c0392b;
+}
+
+// Typography — Helvetica Neue (hn-medium/hn-bold quan hi hagi fitxers de font)
+:root {
+    --font-family:      'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-family-bold: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --text-xs:   0.6875rem;  // 11px
+    --text-sm:   0.75rem;    // 12px
+    --text-md:   1rem;       // 16px  ← body base (brand: 16px)
+    --text-lg:   1.125rem;   // 18px
+    --text-xl:   1.5625rem;  // 25px  ← H2
+    --text-2xl:  1.875rem;   // 30px  ← H1
+}
+
+// Spacing — brand space tokens
+:root {
+    --space-1: 4px;
+    --space-2: 5px;
+    --space-3: 7px;
+    --space-4: 9px;
+    --space-5: 10px;
+    --space-6: 14px;
+    --space-7: 15px;
+    --space-8: 16px;
+
+    --padding-sm: var(--space-5);
+    --padding-md: var(--space-8);
+    --padding-lg: var(--space-7);
+    --padding-xl: 20px;
+
+    --margin-sm: 15px;
+    --margin-md: 25px;
+    --margin-lg: 45px;
+    --margin-xl: 50px;
+}
+
+// Border radius — brand: cap border-radius (disseny asèptic, recte)
+:root {
+    --border-radius-sm: 0px;
+    --border-radius:    0px;
+    --border-radius-lg: 0px;
+}
+
+// Motion — brand motion tokens
+:root {
+    --duration-instant: 50ms;
+    --duration-fast:    100ms;
+    --duration-normal:  200ms;
+    --duration-slow:    300ms;
+    --duration-slower:  350ms;
+}
+
+// Backoffice layout
+:root {
+    --menu-background-color: var(--color-brand-black);
+}
+
+// Force light mode (brand is always light)
+:root {
+    color-scheme: light !important;
+}

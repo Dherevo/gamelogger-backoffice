@@ -1,0 +1,118 @@
+.circular {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.gray-border,
+.grey-border {
+    border: solid 1px lightgray;
+}
+
+.whitebox {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    border: solid 1px rgb(232, 232, 232);
+}
+
+.bgimage {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: gray;
+}
+
+.red {
+    font-size: 0.81rem;
+    color: rgb(228, 27, 27);
+}
+.lines1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.lines2 {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+.lines3 {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+.flash-effect {
+    animation: blinker 1s ease-in-out infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0.2;
+    }
+}
+
+
+
+@media screen and (min-width: 1200px) {
+    .lg-hidden {
+      display: none;
+    }
+  }
+  
+  @media screen and (min-width: 992px) {
+    .md-hidden {
+      display: none;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .sm-hidden {
+      display: none;
+    }
+  }
+  
+  @media screen and (min-width: 535px) {
+    .xs-hidden {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .lg-visible {
+      display: block;
+    }
+    .lg-flex {
+      display: flex;
+    }
+  }
+  
+  @media screen and (min-width: 992px) {
+    .md-visible {
+      display: block;
+    }
+    .md-flex {
+      display: block;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .sm-visible {
+      display: block;
+    }
+    .sm-flex {
+      display: flex;
+    }
+  }
+  
+  @media screen and (min-width: 535px) {
+    .xs-visible {
+      display: block;
+    }
+    .xs-flex {
+      display: flex;
+    }
+  }

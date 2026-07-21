@@ -1,0 +1,57 @@
+.form-input.type-select {
+
+    .p-select {
+        width: 100%;
+
+        .p-select-label {
+            min-height: 30px;
+        }  
+    }
+
+    .p-dropdown {
+        display: flex;
+        min-height: 30px;
+    }
+
+    .p-dropdown-label {
+        padding: 0px 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    label {
+        font-size: .9rem;
+    }
+
+    .p-multiselect-label {
+        padding: .35rem .75rem;
+        font-size: .9rem;
+        display: flex;
+        gap: 5px;
+        min-height: 30px;
+    }
+}
+
+.p-select-overlay, .p-multiselect-overlay {
+    .p-select-filter {
+        padding: 10px;
+    
+        .p-select-filter-input {
+            display: flex;
+            align-items: center;
+            border: solid 1px var(--border-color);
+            border-radius: 5px;
+            padding-right: 10px;
+    
+            input.p-inputtext {
+                border: none;
+                flex: 1;
+            }
+        }
+    }
+
+    .loader-container {
+        padding-top: 40px;
+        padding-bottom: 20px;
+    }
+}

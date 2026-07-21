@@ -1,0 +1,139 @@
+.form-input.type-date {
+
+    .form-input-calendar-input {
+        background-color: white;
+        border: solid 1px lightgray;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: max-content;
+        width: fit-content;
+        padding-right: 15px;
+
+        &.invalid {
+            border-color: var(--error-color);
+        }
+
+        .calendar-input-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            padding-left: 35px;
+    
+            .calendar-button {
+                position: absolute;
+                left: 8px;
+                top: 0;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+    
+                svg {
+                    opacity: .5;
+    
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            span {
+                text-align: center;
+            }
+    
+            input {
+                border: none;
+                width: 90px;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .time-inputs {
+            width: 90px;
+            flex: 0 0 90px;
+    
+            .p-inputmask {
+                text-align: center;
+                padding: 0.5rem 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .calendar-button {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+    
+                svg {
+                    opacity: .75;
+    
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form-input-date-popover {
+
+    .p-popover-content {
+        padding: 0;
+        border: none;
+    }
+
+    #datepicker-timeonly_panel {
+        padding: 10px 0;
+        
+        .p-datepicker-time-picker {
+            gap: 0px;
+        }
+
+        .p-datepicker-increment-button,
+        .p-datepicker-decrement-button {
+            padding: 0;
+            height: auto;
+            opacity: .5;
+        }
+    }
+}
+
+.p-datepicker-panel.form-input-calendar {
+    
+    span.p-datepicker-day {
+        border-radius: 5px;
+
+        &.p-datepicker-day-selected span.day-number {
+            color: white;
+        }
+
+        &.p-datepicker-day-selected-range span.day-number {
+            background-color: var(--highlight);
+        }
+        
+        &.p-disabled {
+            text-decoration: line-through;
+            opacity: .3;
+        }
+    
+        span.day-number {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+
+            &.active {
+                background-color: var(--primary-color);
+                color: white;
+            }
+        }
+
+    }
+}

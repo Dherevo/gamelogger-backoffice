@@ -1,0 +1,7 @@
+input, textarea, input.p-inputtext {
+    color: var(--text-color);
+
+    &::placeholder {
+        color: var(--placeholder-color);
+    }
+}

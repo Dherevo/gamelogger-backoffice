@@ -1,0 +1,32 @@
+.p-popover.popup-popover {
+    transform: translateY(-10px);
+    overflow: none;
+
+    .p-popover-content {
+        padding: 0;
+    }
+
+    &::before, &::after {
+        display: none;
+    }
+}
+
+.popup {
+    position: relative;
+    width: max-content;
+
+    .popup-trigger {
+        cursor: pointer;
+        width: max-content;
+    }
+
+    &.dropdown {
+
+        .popup-popover {
+            top: 100% !important;
+            left: 0 !important;
+            right: initial !important;
+            width: 100% !important;
+        }
+    }
+}

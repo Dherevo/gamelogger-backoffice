@@ -1,0 +1,49 @@
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.scrollable {
+    overflow: auto;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.non-touchable {
+    pointer-events: none;
+}
+
+.touchable {
+    pointer-events: all;
+}
+
+.hidden {
+	display: none;
+}
+
+.gap-5 {
+	gap: 5px;
+}.gap-10 {
+	gap: 10px;
+}.gap-15 {
+	gap: 15px;
+}.gap-20 {
+	gap: 20px;
+}.gap-25 {
+	gap: 25px;
+}.gap-30 {
+	gap: 30px;
+}.gap-35 {
+	gap: 35px;
+}.gap-40 {
+	gap: 40px;
+}.gap-45 {
+	gap: 45px;
+}.gap-50 {
+	gap: 50px;
+}

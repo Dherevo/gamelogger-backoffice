@@ -1,0 +1,200 @@
+$sidebar-bg:     #000000;
+$sidebar-text:   #ffffff;
+$sidebar-border: rgba(255, 255, 255, 0.12);
+$header-bg:      #000000;
+$padding:        25px;
+$padding-sm:     15px;
+
+#backoffice-layout {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+
+    #backoffice-menu {
+        background-color: $sidebar-bg;
+        border-right: solid 1px $sidebar-border;
+        flex: 0 0 250px;
+        max-width: 250px;
+        overflow: hidden;
+        color: $sidebar-text;
+
+        #backoffice-menu-header {
+            padding: $padding;
+
+            .logo img {
+                width: 100%;
+                height: auto;
+                // invert logo to white on black bg
+                filter: invert(1);
+            }
+
+            .btn.toggle-menu {
+                background-color: transparent;
+                border: solid 1px $sidebar-border;
+                padding: 8px;
+                width: 30px;
+                flex: 0 0 30px;
+                height: 30px;
+
+                .btn-content svg {
+                    color: $sidebar-text;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        #backoffice-menu-content {
+            padding: $padding $padding-sm;
+            flex: 1;
+            overflow: auto;
+
+            // Neutralitza el background blanc que PrimeVue posa al TieredMenu
+            .p-tieredmenu.p-component {
+                background: transparent !important;
+                border: none !important;
+            }
+
+            // Section group labels — lowercase + bold + blanc
+            .p-tieredmenu-section-label {
+                color: $sidebar-text !important;
+                text-transform: lowercase;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+
+            // Leaf item links — forçar blanc per sobre de menu-item.vue
+            a.p-tieredmenu-item-link {
+                color: $sidebar-text !important;
+                border-radius: 0 !important;
+                border: 1px solid black;
+
+                .p-tieredmenu-item-label,
+                span {
+                    color: $sidebar-text !important;
+                }
+
+                svg {
+                    color: $sidebar-text !important;
+                    opacity: 0.7;
+                }
+
+                &:hover {
+                    //background: rgba(255, 255, 255, 0.1) !important;
+                    border: 1px solid white;
+                    svg { opacity: 1; }
+                }
+
+                &.active {
+                    background: white !important;
+                    border: 1px  solid white;
+                    span  {color: black !important;}
+                    svg { color: black !important; opacity: 1; }
+                }
+            }
+        }
+
+        #backoffice-menu-footer {
+            padding: $padding;
+            border-top: solid 1px $sidebar-border;
+            color: $sidebar-text;
+
+            .p-avatar {
+                display: none;
+            }
+
+            .user-info {
+                color: $sidebar-text;
+
+                .text-sm {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+        }
+
+        &.collapsed {
+            flex: 0 0 80px;
+            max-width: 80px;
+
+            #backoffice-menu-header {
+                .logo { display: none; }
+
+                .btn.toggle-menu .btn-content svg {
+                    transform: rotate(180deg);
+                }
+            }
+
+            #backoffice-menu-content {
+                .p-tieredmenu.p-component {
+                    ul.p-tieredmenu-root-list {
+                        .p-tieredmenu-item-content {
+                            .p-tieredmenu-item-link {
+                                width: fit-content;
+                            }
+                        }
+                    }
+                }
+            }
+
+            #backoffice-menu-footer {
+                .p-avatar { display: flex; }
+                .user-info { display: none; }
+            }
+        }
+    }
+
+    #backoffice-content {
+
+        #backoffice-content-header {
+            padding: $padding-sm $padding;
+            background-color: $header-bg;
+            border-bottom: none;
+            color: $sidebar-text;
+
+            .p-breadcrumb {
+                padding: 0;
+                background: transparent;
+
+                .p-breadcrumb-list {
+                    gap: 3px;
+                }
+
+                .p-breadcrumb-item-label,
+                .p-breadcrumb-separator {
+                    color: rgba(255, 255, 255, 0.7);
+                }
+
+                a.v-link {
+                    color: $sidebar-text;
+                    text-decoration: none;
+
+                    &:hover {
+                        color: rgba(255, 255, 255, 0.7);
+                    }
+                }
+            }
+
+            #logout {
+                cursor: pointer;
+                color: #dc2626;
+
+                &:hover {
+                    color: #ef4444;
+                }
+
+                span {
+                    color: #dc2626;
+                }
+            }
+        }
+
+        #backoffice-page-content {
+            background-color: var(--background-color);
+            padding: $padding;
+            flex: 1;
+            overflow: auto;
+        }
+    }
+
+}

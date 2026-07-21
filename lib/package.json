@@ -1,0 +1,40 @@
+{
+  "name": "lib",
+  "version": "3.0.1",
+  "description": "Vue3 library",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "files": [
+    "/src",
+    "/css",
+    "/cli"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@primevue/themes": "^4.5.4",
+    "axios": "^1.16.0",
+    "countries-and-timezones": "^3.8.0",
+    "countup.js": "^2.9.0",
+    "dompurify": "^3.4.2",
+    "intl-tel-input": "^26.3.1",
+    "jwt-decode": "^4.0.0",
+    "moment-timezone": "^0.6.0",
+    "nanoid": "^4.0.0",
+    "primelocale": "^2.3.1",
+    "primevue": "^4.5.5",
+    "quill": "^2.0.3",
+    "reflect-metadata": "^0.2.2",
+    "tippy.js": "^6.3.7",
+    "vue": "^3.5.33",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.28.0",
+    "@types/intl-tel-input": "^18.1.4",
+    "@types/node": "^24.0.10",
+    "sass": "^1.99.0",
+    "typescript": "^6.0.3"
+  }
+}

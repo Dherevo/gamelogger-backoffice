@@ -1,0 +1,23 @@
+.form-input.type-checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+
+    label {
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    .p-checkbox {
+        transform: scale(1);
+    }
+
+    &.rounded {
+
+        .p-checkbox-box {
+            border-radius: 50%;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+#pause-rules-index-page {
+    .orphan-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 10px;
+        padding: 2px 8px;
+        border: 1px solid currentColor;
+        font-size: .7rem;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+
+        svg {
+            width: 12px;
+            height: 12px;
+        }
+    }
+
+    .message-cell {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        max-width: 320px;
+    }
+}

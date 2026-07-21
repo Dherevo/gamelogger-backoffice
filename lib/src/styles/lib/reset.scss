@@ -1,0 +1,32 @@
+
+html { font-size: var(--base-size); }
+
+/* RESET */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  outline: none !important;
+  box-sizing:border-box;
+}
+button:active {
+  outline: none;
+}
+
+a {
+  color: inherit;
+}
+a:focus {
+  box-shadow: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+textarea {
+  font-family: inherit !important;
+}

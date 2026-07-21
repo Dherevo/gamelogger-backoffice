@@ -1,0 +1,22 @@
+.form-input.type-toggle {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
+    label {
+        margin-bottom: 0;
+    }
+
+    .p-toggleswitch {
+        width: 2.3rem;
+        height: 1.3rem;
+
+        .p-toggleswitch-handle {
+            width: .9rem;
+            height: .9rem;
+            top: 54%;
+        }
+    }
+}

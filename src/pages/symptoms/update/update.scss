@@ -1,0 +1,19 @@
+#symptoms-update-page {
+    .grade-row {
+        border-bottom: 1px solid var(--border-color, #e5e7eb);
+        padding-bottom: 15px;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    .grade-image-section {
+        margin-top: 10px;
+
+        .grade-image-label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+    }
+}

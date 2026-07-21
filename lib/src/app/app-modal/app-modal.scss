@@ -1,0 +1,115 @@
+.p-dialog-mask {
+    z-index: 999 !important;
+}
+
+.p-dialog.app-modal {
+    border: none;
+
+    .p-dialog-header {
+        padding: 20px 35px 15px 35px;
+
+        .p-dialog-title {
+            font-size: 1.2rem;
+        }
+
+        .p-dialog-header-icons {
+            margin-left: auto;
+
+            .p-dialog-header-close {
+                width: 20px;
+                height: 20px;
+                padding: 3px;
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+    }
+
+    .p-dialog-content {
+        padding: 0;
+
+        > * {
+            padding: 30px 35px 30px 35px;
+            padding-top: 0;
+            font-size: 1.1rem;
+        }
+    }
+
+    .p-dialog-footer {
+        padding: 5px 35px 30px 35px;
+        border-top: none;
+
+        .p-dialog-footer-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        button.btn {
+            font-size: 1.1rem;
+            flex: 1;
+
+            &.p-dialog-footer-button-1 {
+                background-color: transparent;
+                border: solid 1px var(--primary-color);
+                color: var(--primary-color);
+                padding: 9px 15px;
+            }
+        }
+    }
+
+    &.no-padding {
+        .p-dialog-content {
+            padding: 0;
+        }
+    }
+
+    &.no-closex {
+
+        .p-dialog-header {
+    
+            .p-dialog-header-icons {
+                
+                .p-dialog-header-close {
+                    display: none;
+                }
+
+            }
+    
+        }
+
+    }
+
+    &.no-header {
+        overflow: hidden;
+
+        .p-dialog-header {
+            display: none;
+        }
+
+        .p-dialog-content {
+            padding-top: 30px;
+        }
+
+    }
+
+    &.alert-modal {
+        .p-dialog-header {
+            padding: 5px;
+            border-bottom: 0;
+        }
+        .p-dialog-content {
+            padding: 40px;
+            padding-top: 25px;
+            min-width: 300px;
+            text-align: center;
+        }
+    }
+
+}
