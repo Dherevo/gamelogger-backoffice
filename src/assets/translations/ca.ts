@@ -183,6 +183,25 @@ const ca = Utils.merge(locale_ca, {
             description: "Descripció",
             translations: "Traduccions",
             page: "{page} de {total} ({count} en total)",
+            story: {
+                current: "Assoliment de història completada",
+                hint: "Marca l'assoliment que significa «història completada»: qui el desbloquegi tindrà el joc com a completat, encara que no tingui el 100%.",
+                mark: "Marcar com a història",
+                isStory: "És el de la història",
+                remove: "Treure",
+                modals: {
+                    mark: {
+                        title: "Marcar com a assoliment de història completada",
+                        text: "Es marcarà «{title}» com l'assoliment que completa la història d'aquest joc (només n'hi pot haver un: si ja n'hi havia un altre, es desmarcarà). Els jugadors que ja el tinguin desbloquejat tindran el joc com a completat ara; la resta, quan sincronitzin.",
+                        button: "Marcar",
+                    },
+                },
+                notifications: {
+                    marked: "Assoliment marcat. Jugadors marcats com a completats ara: {count}",
+                    unmarked: "Assoliment desmarcat. Els jocs ja completats es mantenen.",
+                    error: "No s'ha pogut canviar l'assoliment de història",
+                },
+            },
             notifications: {
                 success: "Assoliment desat correctament",
                 error: "Error en desar l'assoliment",

@@ -34,6 +34,7 @@ class GamesUpdatePage extends Vue {
     achievementsPageSize: number = 20;
     expandedAchievements: Record<number, boolean> = {};
     savingAchievements: Record<number, boolean> = {};
+    changingStory: Record<number, boolean> = {};
 
     created() {
         const id = (this as any).$route?.params?.id as string;
@@ -208,6 +209,49 @@ class GamesUpdatePage extends Vue {
     }
 
     // --- Achievements ---
+    /** Platforms of this game that already have a "story completed" achievement chosen. */
+    get storyPlatforms(): PlatformGame[] {
+        return this.game.platforms.filter(p => p.story_achievement);
+    }
+
+    toggleStory(a: Achievement) {
+        if (this.changingStory[a.id]) return;
+        const marking = !a.is_story_completion;
+        if (!marking) { this.applyStory(a, false); return; }
+
+        // Marking has effects on players (those who already have it get the game as completed), so confirm.
+        App.confirm(`<div class="flex-row gap10">
+            <i class="pi pi-info-circle"></i>
+            <div>${$t('game.achievements.story.modals.mark.text', { title: a.title || a.name })}</div>
+        </div>`, {
+            title: $t('game.achievements.story.modals.mark.title'),
+            cancelButton: { content: $t('generic.cancel'), class: 'primary-dark backoffice' },
+            confirmButton: { content: $t('game.achievements.story.modals.mark.button'), class: 'primary', icon: 'prime/check' },
+        }).then((ok: boolean) => { if (ok) this.applyStory(a, true); });
+    }
+
+    /** Unmark the story achievement from the summary line (it may be on another page of the list). */
+    unmarkStory(pg: PlatformGame) {
+        if (!pg.story_achievement) return;
+        this.applyStory(new Achievement({ id: pg.story_achievement.id }), false);
+    }
+
+    private applyStory(a: Achievement, marking: boolean) {
+        this.changingStory[a.id] = true;
+        a.setStoryCompletion(marking)
+            .then((res: any) => {
+                const message = marking
+                    ? $t('game.achievements.story.notifications.marked', { count: res?.users_marked ?? 0 })
+                    : $t('game.achievements.story.notifications.unmarked');
+                App.notification(message).setType('success').setTime(4000).show();
+                // Marking one unmarks the previous one, which may be on another page: reload both.
+                this.loadAchievements();
+                return this.reloadPlatforms();
+            })
+            .catch(() => App.notification($t('game.achievements.story.notifications.error')).setType('error').setTime(5000).show())
+            .finally(() => { this.changingStory[a.id] = false; });
+    }
+
     toggleAchievement(a: Achievement) {
         this.expandedAchievements[a.id] = !this.expandedAchievements[a.id];
     }

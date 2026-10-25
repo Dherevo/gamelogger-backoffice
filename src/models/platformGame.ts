@@ -10,6 +10,7 @@ export default class PlatformGame extends Model {
     name: string = '';          // platform name
     key: string = '';           // platform-specific key (Steam appid, PSN id, ...)
     achievements_synced_at: string | null = null;
+    story_achievement: { id: number; name: string; title: string } | null = null; // "story completed" achievement
 
     constructor(api?: any) {
         super();

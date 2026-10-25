@@ -48,6 +48,25 @@
     }
 
     // --- Achievements ---
+    .story-summary,
+    .story-hint {
+        font-size: 0.9rem;
+    }
+    .story-summary {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        .btn {
+            width: auto;
+            flex: 0 0 auto;
+        }
+    }
+    .story-hint {
+        opacity: 0.7;
+    }
+
     .empty-achievements {
         font-size: 0.9rem;
         opacity: 0.7;

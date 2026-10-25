@@ -183,6 +183,25 @@ const en = Utils.merge(locale_en, {
             description: "Description",
             translations: "Translations",
             page: "{page} of {total} ({count} total)",
+            story: {
+                current: "Story-completed achievement",
+                hint: "Pick the achievement that means \"story completed\": players who unlock it get the game marked as completed, even without the 100%.",
+                mark: "Mark as story",
+                isStory: "This is the story one",
+                remove: "Remove",
+                modals: {
+                    mark: {
+                        title: "Mark as the story-completed achievement",
+                        text: "\"{title}\" will be marked as the achievement that completes this game's story (only one is allowed: a previous one will be unmarked). Players who already have it unlocked get the game as completed now; the rest when they sync.",
+                        button: "Mark",
+                    },
+                },
+                notifications: {
+                    marked: "Achievement marked. Players marked as completed now: {count}",
+                    unmarked: "Achievement unmarked. Games already completed stay completed.",
+                    error: "Could not change the story achievement",
+                },
+            },
             notifications: {
                 success: "Achievement saved successfully",
                 error: "Error saving the achievement",

@@ -22,6 +22,10 @@ export default class Achievement extends Model {
     icon: string = '';           // full URL (read-only)
     platform: string = '';
 
+    // The achievement that means "story completed" for its game (at most one per game).
+    // Changed on its own (see setStoryCompletion), not through save(): marking it has effects on players.
+    is_story_completion: boolean = false;
+
     // Per-locale title translations. Empty string when no translation row exists.
     translations: Record<GameLocale, string> = { ca: '', es: '', en: '' };
 
@@ -55,6 +59,15 @@ export default class Achievement extends Model {
             title: this.title,
             description: this.description,
         }).promise();
+    }
+
+    /**
+     * Marks (or unmarks) this achievement as the one that completes the game's story. Marking it
+     * unmarks the game's previous one, and players who already unlocked it are marked as having
+     * completed the game. Resolves with `users_marked` (players evaluated just now).
+     */
+    setStoryCompletion(value: boolean): Promise<{ users_marked?: number }> {
+        return http.put(`/admin/achievements/${this.id}`, { is_story_completion: value }).promise() as Promise<any>;
     }
 
     setTranslation(locale: GameLocale): Promise<any> {

@@ -108,6 +108,22 @@
                 </div>
             </div>
 
+            <template v-if="storyPlatforms.length">
+                <div v-for="pg in storyPlatforms" :key="pg.id" class="story-summary m-bottom-15">
+                    <SvgIcon name="prime/bookmark-fill"/>
+                    <span>{{ $t('game.achievements.story.current') }}:
+                        <strong>{{ pg.story_achievement?.title || pg.story_achievement?.name }}</strong>
+                        <template v-if="storyPlatforms.length > 1"> ({{ pg.name }})</template>
+                    </span>
+                    <Btn ripple class="no-fill small" :loading="changingStory[pg.story_achievement?.id ?? 0]" @click="unmarkStory(pg)">
+                        {{ $t('game.achievements.story.remove') }}
+                    </Btn>
+                </div>
+            </template>
+            <div v-else-if="achievementsTotal > 0" class="story-hint m-bottom-15">
+                {{ $t('game.achievements.story.hint') }}
+            </div>
+
             <Loader v-if="!achievementsLoaded" />
 
             <template v-else>
@@ -129,6 +145,11 @@
                                        v-model="a.description"
                                        :placeholder="$t('game.achievements.description')"/>
                         </div>
+                        <Btn ripple :class="a.is_story_completion ? 'primary small' : 'no-fill small'"
+                             :loading="changingStory[a.id]" @click="toggleStory(a)">
+                            <SvgIcon :name="a.is_story_completion ? 'prime/bookmark-fill' : 'prime/bookmark'"/>
+                            {{ a.is_story_completion ? $t('game.achievements.story.isStory') : $t('game.achievements.story.mark') }}
+                        </Btn>
                         <Btn ripple class="no-fill small" @click="toggleAchievement(a)">
                             <SvgIcon :name="expandedAchievements[a.id] ? 'prime/chevron-up' : 'prime/chevron-down'"/>
                             {{ $t('game.achievements.translations') }}
