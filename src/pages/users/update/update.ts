@@ -52,6 +52,11 @@ class UsersUpdatePage extends Vue {
             v.error = true;
             v.errorMessage = $t('users.errors.nicknameInUse');
             v.setInputError();
+        } else if (error?.status === 400 && String(code).startsWith('steam.')) {
+            const v = this.validator.get('steam_id');
+            v.error = true;
+            v.errorMessage = $t(`users.errors.${code.replace('steam.', 'steam_')}`);
+            v.setInputError();
         } else {
             App.notification($t('users.update.notifications.error')).setType('error').setTime(5000).show();
         }

@@ -31,6 +31,40 @@
             <FormInput  v-model="user.isAdmin"
                         type="toggle"
                         :label="$t('users.labels.admin')"/>
+
+            <template v-if="form === 'update'">
+                <FormInput  v-model="user.steam_id"
+                            :label="$t('users.labels.steamId')"
+                            :placeholder="$t('users.placeholders.steamId')"
+                            :help="$t('users.form.steamHint')"
+                            :validator="validator.add('steam_id', () => user.steam_id)"/>
+                <div v-if="user.steam_id" class="steam-link">
+                    <a :href="`https://steamcommunity.com/profiles/${user.steam_id}`" target="_blank" rel="noopener">
+                        {{ $t('users.form.openSteam') }}
+                    </a>
+                    <span v-if="user.steam_last_synced_at" class="steam-sync">
+                        {{ $t('users.labels.lastSync') }}: {{ String(user.steam_last_synced_at).slice(0, 16).replace('T', ' ') }}
+                    </span>
+                </div>
+
+                <FormInput  v-model="user.locale"
+                            type="select"
+                            :label="$t('users.labels.locale')"
+                            :options="localeOptions"
+                            :required="false"
+                            :placeholder="$t('users.form.localeNone')"/>
+                <FormInput  v-model="user.profile_visibility"
+                            type="select"
+                            :label="$t('users.labels.visibility')"
+                            :options="visibilityOptions"
+                            :help="$t('users.form.visibilityHint')"/>
+
+                <div class="user-stats">
+                    {{ $t('users.labels.games') }}: <strong>{{ user.games_count }}</strong>
+                    · {{ $t('users.labels.completed') }}: <strong>{{ user.completed_games }}</strong>
+                    <template v-if="user.created_at"> · {{ $t('users.labels.createdAt') }}: <strong>{{ String(user.created_at).slice(0, 10) }}</strong></template>
+                </div>
+            </template>
         </div>
     </div>
 </template>

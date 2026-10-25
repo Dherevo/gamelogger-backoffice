@@ -15,6 +15,13 @@ export default class User extends Model {
     email: string = '';
     password: string = '';
     isAdmin: boolean = false;
+    locale: string | null = null;              // ca / es / en, null = not set
+    profile_visibility: string = 'public';     // public / friends / private
+    created_at: string = '';
+    steam_id: string = '';                     // SteamID64 of the linked Steam account, '' = none
+    steam_last_synced_at: string | null = null;
+    games_count: number = 0;
+    completed_games: number = 0;
 
     constructor(api?: any) {
         super();
@@ -47,9 +54,15 @@ export default class User extends Model {
         // field on edit doesn't overwrite the existing password.
         if (this.password) payload.password = this.password;
 
-        return !this.id
-            ? http.post('/users/create', payload).promise()
-            : http.put(`/users/${this.id}/edit`, payload).promise();
+        if (!this.id) {
+            return http.post('/users/create', payload).promise();
+        }
+
+        // Only on edit. An empty Steam ID unlinks the account (the games already imported stay).
+        payload.steam_id = (this.steam_id || '').trim();
+        payload.locale = this.locale || null;
+        payload.profile_visibility = this.profile_visibility;
+        return http.put(`/users/${this.id}/edit`, payload).promise();
     }
 
     delete(): Promise<any> {
