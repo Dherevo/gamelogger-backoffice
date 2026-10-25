@@ -171,7 +171,7 @@ const es = Utils.merge(locale_es, {
             modals: {
                 remove: {
                     title: "Quitar plataforma",
-                    text: "¿Seguro que quieres quitar la plataforma \"{name}\" de este juego?",
+                    text: "¿Seguro que quieres quitar la plataforma \"{{name}}\" de este juego?",
                     button: "Quitar",
                 },
             },
@@ -182,7 +182,7 @@ const es = Utils.merge(locale_es, {
             titlePlaceholder: "Título del logro",
             description: "Descripción",
             translations: "Traducciones",
-            page: "{page} de {total} ({count} en total)",
+            page: "{{page}} de {{total}} ({{count}} en total)",
             story: {
                 current: "Logro de historia completada",
                 hint: "Marca el logro que significa «historia completada»: a quien lo desbloquee se le marcará el juego como completado, aunque no tenga el 100%.",
@@ -192,12 +192,12 @@ const es = Utils.merge(locale_es, {
                 modals: {
                     mark: {
                         title: "Marcar como logro de historia completada",
-                        text: "Se marcará «{title}» como el logro que completa la historia de este juego (solo puede haber uno: si ya había otro, se desmarcará). Los jugadores que ya lo tengan desbloqueado tendrán el juego como completado ahora; el resto, cuando sincronicen.",
+                        text: "Se marcará «{{title}}» como el logro que completa la historia de este juego (solo puede haber uno: si ya había otro, se desmarcará). Los jugadores que ya lo tengan desbloqueado tendrán el juego como completado ahora; el resto, cuando sincronicen.",
                         button: "Marcar",
                     },
                 },
                 notifications: {
-                    marked: "Logro marcado. Jugadores marcados como completados ahora: {count}",
+                    marked: "Logro marcado. Jugadores marcados como completados ahora: {{count}}",
                     unmarked: "Logro desmarcado. Los juegos ya completados se mantienen.",
                     error: "No se ha podido cambiar el logro de historia",
                 },

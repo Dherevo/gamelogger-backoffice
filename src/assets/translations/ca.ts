@@ -171,7 +171,7 @@ const ca = Utils.merge(locale_ca, {
             modals: {
                 remove: {
                     title: "Treu plataforma",
-                    text: "Segur que vols treure la plataforma \"{name}\" d'aquest joc?",
+                    text: "Segur que vols treure la plataforma \"{{name}}\" d'aquest joc?",
                     button: "Treu",
                 },
             },
@@ -182,7 +182,7 @@ const ca = Utils.merge(locale_ca, {
             titlePlaceholder: "Títol de l'assoliment",
             description: "Descripció",
             translations: "Traduccions",
-            page: "{page} de {total} ({count} en total)",
+            page: "{{page}} de {{total}} ({{count}} en total)",
             story: {
                 current: "Assoliment de història completada",
                 hint: "Marca l'assoliment que significa «història completada»: qui el desbloquegi tindrà el joc com a completat, encara que no tingui el 100%.",
@@ -192,12 +192,12 @@ const ca = Utils.merge(locale_ca, {
                 modals: {
                     mark: {
                         title: "Marcar com a assoliment de història completada",
-                        text: "Es marcarà «{title}» com l'assoliment que completa la història d'aquest joc (només n'hi pot haver un: si ja n'hi havia un altre, es desmarcarà). Els jugadors que ja el tinguin desbloquejat tindran el joc com a completat ara; la resta, quan sincronitzin.",
+                        text: "Es marcarà «{{title}}» com l'assoliment que completa la història d'aquest joc (només n'hi pot haver un: si ja n'hi havia un altre, es desmarcarà). Els jugadors que ja el tinguin desbloquejat tindran el joc com a completat ara; la resta, quan sincronitzin.",
                         button: "Marcar",
                     },
                 },
                 notifications: {
-                    marked: "Assoliment marcat. Jugadors marcats com a completats ara: {count}",
+                    marked: "Assoliment marcat. Jugadors marcats com a completats ara: {{count}}",
                     unmarked: "Assoliment desmarcat. Els jocs ja completats es mantenen.",
                     error: "No s'ha pogut canviar l'assoliment de història",
                 },

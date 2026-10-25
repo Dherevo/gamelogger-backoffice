@@ -171,7 +171,7 @@ const en = Utils.merge(locale_en, {
             modals: {
                 remove: {
                     title: "Remove platform",
-                    text: "Are you sure you want to remove the platform \"{name}\" from this game?",
+                    text: "Are you sure you want to remove the platform \"{{name}}\" from this game?",
                     button: "Remove",
                 },
             },
@@ -182,7 +182,7 @@ const en = Utils.merge(locale_en, {
             titlePlaceholder: "Achievement title",
             description: "Description",
             translations: "Translations",
-            page: "{page} of {total} ({count} total)",
+            page: "{{page}} of {{total}} ({{count}} total)",
             story: {
                 current: "Story-completed achievement",
                 hint: "Pick the achievement that means \"story completed\": players who unlock it get the game marked as completed, even without the 100%.",
@@ -192,12 +192,12 @@ const en = Utils.merge(locale_en, {
                 modals: {
                     mark: {
                         title: "Mark as the story-completed achievement",
-                        text: "\"{title}\" will be marked as the achievement that completes this game's story (only one is allowed: a previous one will be unmarked). Players who already have it unlocked get the game as completed now; the rest when they sync.",
+                        text: "\"{{title}}\" will be marked as the achievement that completes this game's story (only one is allowed: a previous one will be unmarked). Players who already have it unlocked get the game as completed now; the rest when they sync.",
                         button: "Mark",
                     },
                 },
                 notifications: {
-                    marked: "Achievement marked. Players marked as completed now: {count}",
+                    marked: "Achievement marked. Players marked as completed now: {{count}}",
                     unmarked: "Achievement unmarked. Games already completed stay completed.",
                     error: "Could not change the story achievement",
                 },
