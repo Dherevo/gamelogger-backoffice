@@ -54,6 +54,14 @@ export default class Achievement extends Model {
             }));
     }
 
+    /**
+     * Reads the game's achievement list from Steam now (library syncs only import it for games someone
+     * has played). Adds the missing ones; resolves with how many were added and how many the game has.
+     */
+    static syncFromSteam(gameId: number | string): Promise<{ added: number; total: number }> {
+        return http.post(`/admin/games/${gameId}/achievements/sync`).promise() as Promise<any>;
+    }
+
     save(): Promise<any> {
         return http.put(`/admin/achievements/${this.id}`, {
             title: this.title,

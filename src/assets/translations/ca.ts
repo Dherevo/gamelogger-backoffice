@@ -197,7 +197,17 @@ const ca = Utils.merge(locale_ca, {
         },
         achievements: {
             title: "Assoliments",
-            empty: "Aquest joc encara no té assoliments sincronitzats.",
+            empty: "Aquest joc encara no té assoliments sincronitzats. Els jocs que ningú ha jugat no els tenen fins que es sincronitzen: usa «Sincronitza amb Steam».",
+            sync: {
+                button: "Sincronitza amb Steam",
+                notifications: {
+                    success: "Assoliments sincronitzats: {{added}} de nous ({{total}} en total)",
+                },
+                errors: {
+                    noSteam: "Aquest joc no té cap entrada de Steam de la qual llegir assoliments.",
+                    generic: "No s'han pogut sincronitzar els assoliments amb Steam",
+                },
+            },
             titlePlaceholder: "Títol de l'assoliment",
             description: "Descripció",
             translations: "Traduccions",

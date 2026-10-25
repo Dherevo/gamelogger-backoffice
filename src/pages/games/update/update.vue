@@ -94,6 +94,9 @@
         <div class="card m-top-20 achievements-card">
             <div class="flex-center m-bottom-15" style="justify-content: space-between;">
                 <h2 class="h6 m-bottom-0">{{ $t('game.achievements.title') }}</h2>
+                <Btn ripple class="no-fill small" :loading="syncingAchievements" @click="syncAchievementsFromSteam()">
+                    <SvgIcon name="prime/refresh"/> {{ $t('game.achievements.sync.button') }}
+                </Btn>
                 <div v-if="achievementsTotal > 0" class="achievements-pager">
                     <Btn ripple class="no-fill small" :disabled="achievementsOffset <= 0" @click="prevAchievementsPage()">
                         <SvgIcon name="prime/chevron-left"/>

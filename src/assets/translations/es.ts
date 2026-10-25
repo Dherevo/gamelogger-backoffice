@@ -197,7 +197,17 @@ const es = Utils.merge(locale_es, {
         },
         achievements: {
             title: "Logros",
-            empty: "Este juego todavía no tiene logros sincronizados.",
+            empty: "Este juego todavía no tiene logros sincronizados. Los juegos que nadie ha jugado no los tienen hasta que se sincronizan: usa «Sincronizar con Steam».",
+            sync: {
+                button: "Sincronizar con Steam",
+                notifications: {
+                    success: "Logros sincronizados: {{added}} nuevos ({{total}} en total)",
+                },
+                errors: {
+                    noSteam: "Este juego no tiene ninguna entrada de Steam de la que leer logros.",
+                    generic: "No se han podido sincronizar los logros con Steam",
+                },
+            },
             titlePlaceholder: "Título del logro",
             description: "Descripción",
             translations: "Traducciones",

@@ -35,6 +35,7 @@ class GamesUpdatePage extends Vue {
     expandedAchievements: Record<number, boolean> = {};
     savingAchievements: Record<number, boolean> = {};
     changingStory: Record<number, boolean> = {};
+    syncingAchievements: boolean = false;
 
     created() {
         const id = (this as any).$route?.params?.id as string;
@@ -198,6 +199,26 @@ class GamesUpdatePage extends Vue {
     }
 
     // --- Achievements ---
+    /** Import the game's achievement list from Steam (it is missing for games nobody has played). */
+    syncAchievementsFromSteam() {
+        if (this.syncingAchievements) return;
+        this.syncingAchievements = true;
+        Achievement.syncFromSteam(this.game.id)
+            .then(res => {
+                App.notification($t('game.achievements.sync.notifications.success', { added: res.added, total: res.total }))
+                    .setType('success').setTime(4000).show();
+                this.achievementsOffset = 0;
+                this.loadAchievements();
+            })
+            .catch(error => {
+                const msg = error?.data?.error === 'game.no_steam'
+                    ? $t('game.achievements.sync.errors.noSteam')
+                    : $t('game.achievements.sync.errors.generic');
+                App.notification(msg).setType('error').setTime(5000).show();
+            })
+            .finally(() => { this.syncingAchievements = false; });
+    }
+
     /** Platforms of this game that already have a "story completed" achievement chosen. */
     get storyPlatforms(): PlatformGame[] {
         return this.game.platforms.filter(p => p.story_achievement);

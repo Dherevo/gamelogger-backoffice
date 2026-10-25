@@ -197,7 +197,17 @@ const en = Utils.merge(locale_en, {
         },
         achievements: {
             title: "Achievements",
-            empty: "This game has no synced achievements yet.",
+            empty: "This game has no synced achievements yet. Games nobody has played have none until they are synced: use \"Sync from Steam\".",
+            sync: {
+                button: "Sync from Steam",
+                notifications: {
+                    success: "Achievements synced: {{added}} new ({{total}} in total)",
+                },
+                errors: {
+                    noSteam: "This game has no Steam entry to read achievements from.",
+                    generic: "Could not sync the achievements from Steam",
+                },
+            },
             titlePlaceholder: "Achievement title",
             description: "Description",
             translations: "Translations",
