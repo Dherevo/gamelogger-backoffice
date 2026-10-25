@@ -101,6 +101,24 @@ const es = Utils.merge(locale_es, {
             hidden: "Oculto",
             icon: "Icono",
             logo: "Logotipo",
+            achievements: "Logros",
+            story: "Historia completada",
+            platforms: "Plataformas",
+        },
+        filters: {
+            yearFrom: "Año desde",
+            yearTo: "Año hasta",
+            manual: "Añadido a mano",
+            platform: "Plataforma",
+            missing: "Le falta",
+            missingOptions: {
+                icon: "Icono",
+                logo: "Logotipo",
+                publisher: "Editor",
+                developer: "Desarrollador",
+                year: "Año",
+                genres: "Géneros",
+            },
         },
         placeholders: {
             name: "Nombre del juego",
@@ -158,6 +176,7 @@ const es = Utils.merge(locale_es, {
             empty: "Este juego todavía no tiene ninguna plataforma asociada.",
             selectPlatform: "Selecciona una plataforma",
             keyPlaceholder: "Clave (Steam appid, ID de PSN...)",
+            keyLocked: "La clave no se puede editar una vez añadida. Para corregirla, quita la plataforma y vuelve a añadirla.",
             errors: {
                 keyTaken: "Esta clave ya está en uso por otro juego.",
                 add: "Error al añadir la plataforma",

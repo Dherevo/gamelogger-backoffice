@@ -176,17 +176,6 @@ class GamesUpdatePage extends Vue {
             .finally(() => { this.addingPlatform = false; });
     }
 
-    savePlatformKey(pg: PlatformGame) {
-        pg.updateKey(this.game.id)
-            .then(() => App.notification($t('game.platforms.notifications.keySaved')).setType('success').setTime(3000).show())
-            .catch(error => {
-                const msg = error?.data?.error === 'platform_game.key_taken'
-                    ? $t('game.platforms.errors.keyTaken')
-                    : $t('game.platforms.errors.update');
-                App.notification(msg).setType('error').setTime(5000).show();
-            });
-    }
-
     removePlatform(pg: PlatformGame) {
         App.confirm(`<div class="flex-row gap10">
             <i class="pi pi-exclamation-triangle"></i>

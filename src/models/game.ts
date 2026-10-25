@@ -21,6 +21,10 @@ export default class Game extends Model {
     hide: boolean = false;
     icon: string = '';
     logo: string = '';
+    is_manual: boolean = false;
+    has_story_achievement: boolean = false; // a "story completed" achievement has been chosen (list only)
+    achievements_count: number = 0;         // synced achievements (list only)
+    platform_names: string[] = [];          // platforms the game is attached to (list only)
 
     // Per-locale name translations (only present after findById()).
     translations: Record<GameLocale, string> = { ca: '', es: '', en: '' };

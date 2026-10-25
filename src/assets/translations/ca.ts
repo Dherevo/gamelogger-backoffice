@@ -101,6 +101,24 @@ const ca = Utils.merge(locale_ca, {
             hidden: "Ocult",
             icon: "Icona",
             logo: "Logotip",
+            achievements: "Assoliments",
+            story: "Història completada",
+            platforms: "Plataformes",
+        },
+        filters: {
+            yearFrom: "Any des de",
+            yearTo: "Any fins a",
+            manual: "Afegit a mà",
+            platform: "Plataforma",
+            missing: "Li falta",
+            missingOptions: {
+                icon: "Icona",
+                logo: "Logotip",
+                publisher: "Editor",
+                developer: "Desenvolupador",
+                year: "Any",
+                genres: "Gèneres",
+            },
         },
         placeholders: {
             name: "Nom del joc",
@@ -158,6 +176,7 @@ const ca = Utils.merge(locale_ca, {
             empty: "Aquest joc encara no té cap plataforma associada.",
             selectPlatform: "Selecciona una plataforma",
             keyPlaceholder: "Clau (Steam appid, ID de PSN...)",
+            keyLocked: "La clau no es pot editar un cop afegida. Per corregir-la, treu la plataforma i torna-la a afegir.",
             errors: {
                 keyTaken: "Aquesta clau ja està en ús per un altre joc.",
                 add: "Error en afegir la plataforma",

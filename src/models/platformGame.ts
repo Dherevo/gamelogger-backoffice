@@ -21,8 +21,9 @@ export default class PlatformGame extends Model {
         return http.post(`/admin/games/${gameId}/platforms`, { platform_id: platformId, key }).promise();
     }
 
-    updateKey(gameId: number | string): Promise<any> {
-        return http.put(`/admin/games/${gameId}/platforms/${this.id}`, { key: this.key }).promise();
+    /** Store page for this key, when the platform has one we know how to link to (only Steam for now). */
+    get url(): string | null {
+        return this.name.toLowerCase() === 'steam' && this.key ? `https://store.steampowered.com/app/${this.key}/` : null;
     }
 
     resetSync(gameId: number | string): Promise<any> {

@@ -64,12 +64,11 @@
 
             <div v-for="pg in game.platforms" :key="pg.id" class="platform-row">
                 <div class="platform-name">{{ pg.name }}</div>
-                <FormInput class="platform-key"
-                           v-model="pg.key"
-                           :placeholder="$t('game.platforms.keyPlaceholder')"/>
-                <Btn ripple class="primary small" @click="savePlatformKey(pg)">
-                    <SvgIcon name="prime/check"/> {{ $t('generic.save') }}
-                </Btn>
+                <div class="platform-key-readonly" :title="$t('game.platforms.keyLocked')">
+                    <a v-if="pg.url" :href="pg.url" target="_blank" rel="noopener">{{ pg.key }}</a>
+                    <span v-else>{{ pg.key }}</span>
+                    <SvgIcon name="prime/lock"/>
+                </div>
                 <Btn ripple class="danger small" @click="removePlatform(pg)">
                     <SvgIcon name="prime/trash"/>
                 </Btn>
