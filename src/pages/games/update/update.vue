@@ -33,6 +33,43 @@
                        :label="$t('game.translations.name') + ' (' + locale.toUpperCase() + ')'"/>
         </div>
 
+        <!-- Languages -->
+        <div class="card m-top-20">
+            <div class="flex-center m-bottom-15" style="justify-content: space-between;">
+                <h2 class="h6 m-bottom-0">{{ $t('game.languages.title') }}</h2>
+                <Btn ripple class="primary small" :loading="savingLanguages" @click="saveLanguages()">
+                    <SvgIcon name="prime/check"/> {{ $t('game.languages.save') }}
+                </Btn>
+            </div>
+
+            <div v-if="game.languages.length === 0" class="empty-platforms m-bottom-15">
+                {{ $t('game.languages.empty') }}
+            </div>
+
+            <div v-for="(l, i) in game.languages" :key="l.name" class="language-row">
+                <div class="platform-name">{{ l.name }}</div>
+                <FormInput v-model="l.text" type="toggle" :label="$t('game.languages.text')"/>
+                <FormInput v-model="l.audio" type="toggle" :label="$t('game.languages.audio')"/>
+                <FormInput v-model="l.is_mod" type="toggle" :label="$t('game.languages.mod')"/>
+                <FormInput v-if="l.is_mod" class="platform-key" v-model="l.mod_url" :placeholder="$t('game.languages.modUrl')"/>
+                <span v-else class="platform-key"></span>
+                <Btn ripple class="danger small" @click="removeLanguage(i)">
+                    <SvgIcon name="prime/trash"/>
+                </Btn>
+            </div>
+
+            <div class="platform-add m-top-15" v-if="availableLanguages.length > 0">
+                <FormInput type="select"
+                           class="platform-select"
+                           v-model="newLanguage"
+                           :options="availableLanguages"
+                           :placeholder="$t('game.languages.select')"/>
+                <Btn ripple class="primary small" @click="addLanguage()">
+                    <SvgIcon name="prime/plus"/> {{ $t('game.languages.add') }}
+                </Btn>
+            </div>
+        </div>
+
         <!-- Images -->
         <div class="card m-top-20">
             <h2 class="h6 m-bottom-15">{{ $t('game.images.title') }}</h2>

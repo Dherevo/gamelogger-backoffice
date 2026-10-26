@@ -183,6 +183,24 @@ const es = Utils.merge(locale_es, {
                 error: "Error al eliminar el juego",
             },
         },
+        languages: {
+            title: "Idiomas",
+            save: "Guardar idiomas",
+            empty: "Este juego aún no tiene idiomas",
+            text: "Texto",
+            audio: "Voces",
+            mod: "Mod",
+            modUrl: "Enlace del mod",
+            select: "Elige un idioma",
+            add: "Añadir",
+            notifications: {
+                success: "Idiomas guardados correctamente",
+                error: "Error al guardar los idiomas",
+            },
+            errors: {
+                url: "El enlace del mod debe ser una URL http(s)",
+            },
+        },
         translations: {
             title: "Traducciones del nombre",
             name: "Nombre",

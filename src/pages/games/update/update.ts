@@ -1,6 +1,6 @@
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import { App, FormInput, IOption, Loader, Validator, $t } from 'lib';
-import Game, { GAME_LOCALES, GameLocale } from '@/models/game';
+import Game, { GAME_LOCALES, GameLocale, STEAM_LANGUAGES } from '@/models/game';
 import Platform from '@/models/platform';
 import PlatformGame from '@/models/platformGame';
 import Achievement from '@/models/achievement';
@@ -18,6 +18,9 @@ class GamesUpdatePage extends Vue {
     loaded: boolean = false;
 
     locales: GameLocale[] = GAME_LOCALES;
+
+    newLanguage: string | null = null;
+    savingLanguages: boolean = false;
 
     iconFile: File | null = null;
     logoFile: File | null = null;
@@ -119,6 +122,36 @@ class GamesUpdatePage extends Vue {
             .then(() => App.notification($t('game.translations.notifications.success')).setType('success').setTime(3000).show())
             .catch(() => App.notification($t('game.translations.notifications.error')).setType('error').setTime(5000).show())
             .finally(() => { this.savingTranslations = false; });
+    }
+
+    // --- Languages ---
+    get availableLanguages(): IOption[] {
+        const used = new Set(this.game.languages.map(l => l.name));
+        return STEAM_LANGUAGES.filter(n => !used.has(n)).map(n => ({ value: n, content: n }));
+    }
+
+    addLanguage() {
+        if (!this.newLanguage) return;
+        this.game.languages.push({ name: this.newLanguage, text: true, audio: false, is_mod: false, mod_url: null });
+        this.newLanguage = null;
+    }
+
+    removeLanguage(index: number) {
+        this.game.languages.splice(index, 1);
+    }
+
+    saveLanguages() {
+        if (this.savingLanguages) return;
+        this.savingLanguages = true;
+        this.game.saveLanguages()
+            .then(() => App.notification($t('game.languages.notifications.success')).setType('success').setTime(3000).show())
+            .catch((error: any) => {
+                const msg = error?.data?.error === 'languages.invalid_url'
+                    ? $t('game.languages.errors.url')
+                    : $t('game.languages.notifications.error');
+                App.notification(msg).setType('error').setTime(5000).show();
+            })
+            .finally(() => { this.savingLanguages = false; });
     }
 
     // --- Icon / Logo ---

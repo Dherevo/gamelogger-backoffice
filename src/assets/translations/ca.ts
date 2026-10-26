@@ -183,6 +183,24 @@ const ca = Utils.merge(locale_ca, {
                 error: "Error en eliminar el joc",
             },
         },
+        languages: {
+            title: "Idiomes",
+            save: "Desa idiomes",
+            empty: "Aquest joc encara no té idiomes",
+            text: "Text",
+            audio: "Veus",
+            mod: "Mod",
+            modUrl: "Enllaç del mod",
+            select: "Tria un idioma",
+            add: "Afegeix",
+            notifications: {
+                success: "Idiomes desats correctament",
+                error: "Error en desar els idiomes",
+            },
+            errors: {
+                url: "L'enllaç del mod ha de ser una URL http(s)",
+            },
+        },
         translations: {
             title: "Traduccions del nom",
             name: "Nom",
