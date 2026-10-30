@@ -13,6 +13,19 @@
                 </Btn>
             </div>
             <GamesForm :game :validator/>
+            <div class="card m-top-20">
+                <h2 class="h6 m-bottom-15">{{ $t('game.images.title') }}</h2>
+                <div class="images-row">
+                    <div class="image-block">
+                        <span class="image-label">{{ $t('game.labels.icon') }}</span>
+                        <FormInput type="image" v-model="iconFile"/>
+                    </div>
+                    <div class="image-block">
+                        <span class="image-label">{{ $t('game.labels.logo') }}</span>
+                        <FormInput type="image" v-model="logoFile"/>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </template>

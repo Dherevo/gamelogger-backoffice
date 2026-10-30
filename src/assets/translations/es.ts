@@ -133,6 +133,7 @@ const es = Utils.merge(locale_es, {
             achievements: "Logros",
             story: "Historia completada",
             platforms: "Plataformas",
+            genres: "Géneros",
         },
         filters: {
             yearFrom: "Año desde",
@@ -154,6 +155,10 @@ const es = Utils.merge(locale_es, {
             year: "Año de lanzamiento",
             publisher: "Editor",
             developer: "Desarrollador",
+            genres: "Añade géneros",
+        },
+        suggest: {
+            create: "Crear «{name}»",
         },
         errors: {
             name: "El nombre es obligatorio",

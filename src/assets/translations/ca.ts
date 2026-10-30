@@ -133,6 +133,7 @@ const ca = Utils.merge(locale_ca, {
             achievements: "Assoliments",
             story: "Història completada",
             platforms: "Plataformes",
+            genres: "Gèneres",
         },
         filters: {
             yearFrom: "Any des de",
@@ -154,6 +155,10 @@ const ca = Utils.merge(locale_ca, {
             year: "Any de llançament",
             publisher: "Editor",
             developer: "Desenvolupador",
+            genres: "Afegeix gèneres",
+        },
+        suggest: {
+            create: "Crea «{name}»",
         },
         errors: {
             name: "El nom és obligatori",

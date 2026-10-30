@@ -47,6 +47,7 @@ export default class Game extends Model {
     translations: Record<GameLocale, string> = { ca: '', es: '', en: '' };
     platforms: PlatformGame[] = [];
     languages: GameLanguage[] = [];
+    genres: string[] = [];
 
     constructor(api?: any) {
         super();
@@ -55,6 +56,7 @@ export default class Game extends Model {
             delete rest.translations;
             delete rest.platforms;
             delete rest.languages;
+            delete rest.genres;
             this.import(rest);
 
             if (api.translations) {
@@ -62,6 +64,7 @@ export default class Game extends Model {
                     this.translations[locale] = api.translations[locale]?.name ?? '';
                 }
             }
+            this.genres = Array.isArray(api.genres) ? [...api.genres] : [];
             this.languages = (api.languages || []).map((l: any) => ({
                 name: l.name, text: !!l.text, audio: !!l.audio, is_mod: !!l.is_mod, mod_url: l.mod_url || null,
             }));
@@ -81,6 +84,15 @@ export default class Game extends Model {
             }));
     }
 
+    /** Names already used as developer/publisher, to reuse them (a new one is created by saving). */
+    static suggestCredits(type: 'developer' | 'publisher', q: string): Promise<string[]> {
+        return http.get('/admin/credits').data({ type, q }).promise() as Promise<string[]>;
+    }
+
+    static suggestGenres(q: string): Promise<string[]> {
+        return http.get('/admin/genres').data({ q }).promise() as Promise<string[]>;
+    }
+
     static findById(id: number | string): Promise<Game> {
         return (http.get(`/admin/games/${id}`).promise() as Promise<any>)
             .then((data: any) => new Game(data));
@@ -89,10 +101,11 @@ export default class Game extends Model {
     save(): Promise<any> {
         const payload: any = {
             name: this.name,
-            year: this.year,
-            publisher: this.publisher,
-            developer: this.developer,
+            year: this.year || null,
+            publisher: this.publisher || null,
+            developer: this.developer || null,
             hide: this.hide,
+            genres: this.genres,
         };
         return !this.id
             ? http.post('/admin/games', payload).promise()

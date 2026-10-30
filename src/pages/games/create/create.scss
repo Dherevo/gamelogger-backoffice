@@ -1,2 +1,22 @@
 #games-create-page {
+    .card {
+        max-width: 720px;
+    }
+
+    .images-row {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    .image-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 0 1 280px;
+        width: 280px;
+    }
+    .image-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
 }
